@@ -1,0 +1,110 @@
+/* Style global */
+:root {
+  --background-light: #f4f4f4;
+  --background-dark: #121212;
+  --text-light: #000000;
+  --text-dark: #ffffff;
+  --primary-color-light: #6200ea;
+  --primary-color-dark: #bb86fc;
+  --button-bg-light: #6200ea;
+  --button-bg-dark: #bb86fc;
+  --link-hover-light: #3700b3;
+  --link-hover-dark: #6200ea;
+}
+
+/* Style global pour le thème clair par défaut */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-light);
+  color: var(--text-light);
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Appliquer le thème sombre */
+body.dark {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+body.light {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: var(--primary-color-light);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.dark {
+  background-color: var(--primary-color-dark);
+}
+
+.logo {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--link-hover-light);
+}
+
+.navbar.dark .nav-links a:hover {
+  color: var(--link-hover-dark);
+}
+
+.page {
+  margin-top: 50px;
+}
+
+/* Styles de boutons pour le thème clair */
+button {
+  background-color: var(--button-bg-light);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--primary-color-light);
+}
+
+/* Styles de boutons pour le thème sombre */
+body.dark button {
+  background-color: var(--button-bg-dark);
+}
+
+body.dark button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+/* Modifications spécifiques au thème sombre */
+body.dark .navbar {
+  background-color: var(--primary-color-dark);
+}
+
+body.dark .page {
+  background-color: var(--background-dark);
+}
