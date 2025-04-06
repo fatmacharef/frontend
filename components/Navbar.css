@@ -1,0 +1,133 @@
+/* Style de la navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1e1e2d; /* Couleur sombre de fond */
+  color: white;
+  position: relative;
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ecf0f1; /* Couleur claire pour le logo */
+}
+
+/* Liens de navigation */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 1.1em;
+}
+
+.nav-links a:hover {
+  color: #3498db; /* Couleur bleue au survol des liens */
+}
+
+/* Section utilisateur */
+.user-section {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Avatar et flèche */
+.profile-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.chevron {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Taille et design de l'avatar */
+.profile-pic, 
+.profile-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+/* Menu déroulant */
+.dropdown-menu {
+  display: flex;
+  flex-direction: column; /* Affiche chaque élément sous l'autre */
+  align-items: center; /* Centre le texte */
+  gap: 10px; /* Espace entre les éléments */
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  width: 150px;
+  z-index: 10;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 8px 10px;
+  text-align: center;
+  cursor: pointer;
+  color: #333;
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+
+.dropdown-item.logout:hover {
+  background: none !important;
+  color: red !important;
+  cursor: pointer;
+}
+
+/* Sélecteur de langue */
+.language-selector {
+  margin-left: 20px;
+}
+
+.language-selector select {
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #2c3e50; /* Couleur sombre pour le fond */
+  color: #ecf0f1; /* Couleur claire pour le texte */
+  transition: background-color 0.3s;
+}
+
+
+
+/* Style des boutons "Se connecter" / "S'inscrire" */
+.login-btn, .signup-btn {
+  background-color: #f3540a; /* Couleur bleue pour les boutons */
+  color: rgb(248, 243, 242);
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1.1em;
+  text-decoration: none;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
