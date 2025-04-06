@@ -1,0 +1,195 @@
+/* Réinitialisation des marges et des paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style de base pour le body et html */
+body, html {
+  width: 100%;
+  height: 100%; /* Assure que la page occupe toute la hauteur */
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s, color 0.3s; /* Transition fluide entre les modes */
+}
+
+/* Mode clair */
+body.light-mode {
+  background-color: #f0f0f5;
+  color: #333;
+}
+
+/* Mode sombre */
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+/* Conteneur principal du chat */
+.chat-container {
+  width: 100vw;
+  max-width: 1900px; /* Limite pour éviter un zoom excessif */
+  height: 90vh;
+  max-height: 800px; /* Taille max pour éviter un effet trop grand */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out; /* Transition fluide pour les changements */
+}
+
+/* Mode clair */
+body.light-mode .chat-container {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Mode sombre */
+body.dark-mode .chat-container {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Titre du chat */
+.chat-title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #6200ea; /* Couleur principale pour correspondre à l'identité du site */
+}
+
+/* Conteneur des messages */
+.chat-box {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espace entre les messages */
+}
+
+/* Mode clair */
+body.light-mode .chat-box {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Mode sombre */
+body.dark-mode .chat-box {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Style des messages */
+.message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
+  transition: background-color 0.3s;
+}
+
+/* Messages de l'utilisateur */
+.user {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+  border-radius: 15px;
+}
+
+/* Messages du bot */
+.bot {
+  background-color: #e0e0e0;
+  color: #333;
+  align-self: flex-start;
+  border-radius: 15px;
+}
+
+/* Conteneur de l'input */
+.input-container {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  align-items: center;
+}
+
+/* Mode clair */
+body.light-mode .input-container {
+  background-color: #fff;
+}
+
+/* Mode sombre */
+body.dark-mode .input-container {
+  background-color: #444;
+}
+
+/* Style de l'input */
+input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Focus sur l'input */
+input:focus {
+  border-color: #6200ea; /* Bordure violette au focus */
+  outline: none;
+}
+
+/* Style du bouton d'envoi */
+button {
+  padding: 12px 18px;
+  margin-left: 10px;
+  background: #6200ea;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 1.1rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Hover sur le bouton d'envoi */
+button:hover {
+  background-color: #4a00e0;
+  transform: scale(1.05);
+}
+
+/* Style du bouton spécifique pour l'envoi */
+.envoyer-button {
+  width: 17%;
+  padding: 15px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: darkred; /* Couleur du bouton */
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Hover sur le bouton d'envoi */
+.envoyer-button:hover {
+  background-color: #c0392b;
+  transform: scale(1.05); /* Effet de zoom */
+}
