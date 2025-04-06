@@ -1,0 +1,190 @@
+/* Styles globaux */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Conteneur principal de la page d'inscription */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  background: linear-gradient(to right, #e8f0fe, #ffffff); /* Dégradé clair et doux */
+  margin: 0;
+  padding: 0;
+}
+
+/* Carte d'inscription avec bord arrondi et ombre */
+.signup-card {
+  background: #ffffff; /* Fond blanc pour l'inscription */
+  padding: 2rem;
+  border-radius: 15px; /* Coins arrondis plus marqués */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée pour un effet 3D */
+  text-align: center;
+  width: 450px; /* Taille plus grande de la carte */
+  max-width: 90%; /* Empêche la carte de devenir trop grande sur les petits écrans */
+}
+
+/* Titre de l'inscription */
+.signup-title {
+  color: #6200ea; /* Couleur vive attirante */
+  font-size: 2rem; /* Taille plus grande */
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Highlight spécifique à PsyBot */
+.highlight {
+  color: #ff9800; /* Couleur distincte pour la partie "PsyBot" */
+}
+
+/* Sous-titre en couleur claire */
+.signup-subtitle {
+  color: #777; /* Gris clair */
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Champs de saisie pour l'inscription */
+.signup-input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd; /* Bordure gris clair */
+  border-radius: 8px; /* Coins arrondis pour un effet doux */
+  font-size: 1rem;
+  color: #333; /* Texte noir pour la lisibilité */
+  background-color: #f9f9f9; /* Fond des champs de saisie */
+  transition: border-color 0.3s; /* Animation lors du focus */
+}
+
+/* Focus sur le champ de saisie */
+.signup-input:focus {
+  border-color: #6200ea; /* Bordure violette au focus */
+  outline: none;
+}
+
+/* Boutons d'action (S'inscrire, Se connecter, Accueil) */
+.signup-button, .login-button, .home-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.signup-button {
+  background: #28a745; /* Bouton vert */
+}
+
+.login-button {
+  background: #ffc107; /* Bouton jaune */
+}
+
+.home-button {
+  background: red; /* Bouton rouge */
+}
+
+/* Hover sur les boutons */
+.signup-button:hover {
+  background: #218838; /* Vert plus foncé pour l'effet hover */
+}
+
+.login-button:hover {
+  background: #e0a800; /* Jaune plus foncé pour l'effet hover */
+}
+
+.home-button:hover {
+  background: darkred; /* Rouge plus foncé pour l'effet hover */
+}
+
+/* Image d'arrière-plan subtile */
+.signup-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.example.com/your-image.jpg') no-repeat center center/cover; /* Remplacez le lien par le vôtre */
+  opacity: 0.1; /* Légère opacité pour ne pas gêner la lisibilité */
+  border-radius: 15px;
+  z-index: -1; /* Assurez-vous que l'image est derrière le contenu */
+}
+
+/* Mode sombre */
+body.dark {
+  background-color: #121212; /* Fond sombre pour le mode sombre */
+}
+
+body.dark .signup-container {
+  background: linear-gradient(to right, #2e2e2e, #121212); /* Dégradé sombre pour la page d'inscription */
+}
+
+body.dark .signup-card {
+  background: #333; /* Carte sombre pour le mode sombre */
+  color: #fff; /* Texte blanc */
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); /* Ombre plus douce */
+}
+
+body.dark .signup-title {
+  color: #bb86fc; /* Couleur du titre pour le mode sombre */
+}
+
+body.dark .signup-input {
+  background-color: #444; /* Fond sombre pour les champs de saisie */
+  color: #fff; /* Texte blanc pour les champs */
+  border-color: #777; /* Bordure grise claire */
+}
+
+body.dark .signup-input:focus {
+  border-color: #bb86fc; /* Bordure violette au focus */
+}
+
+body.dark .signup-button {
+  background: #6200ea; /* Bouton violet clair pour le mode sombre */
+}
+
+body.dark .login-button {
+  background: #e0a800; /* Bouton jaune pour le mode sombre */
+}
+
+body.dark .home-button {
+  background: darkred; /* Bouton rouge pour le mode sombre */
+}
+
+body.dark .signup-button:hover {
+  background: #3700b3; /* Violet plus foncé pour l'effet hover */
+}
+
+body.dark .login-button:hover {
+  background: #c57d00; /* Jaune plus foncé pour l'effet hover */
+}
+
+body.dark .home-button:hover {
+  background: darkred; /* Rouge plus foncé pour l'effet hover */
+}
+
+body[lang="ar"] {
+  direction: rtl;
+}
+
+body {
+  direction: ltr;
+}

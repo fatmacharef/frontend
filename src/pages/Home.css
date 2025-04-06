@@ -1,0 +1,175 @@
+/* Conteneur principal de la page d'accueil */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Positionne le contenu plus haut */
+  align-items: center;
+  height: 90vh; /* Utilise 100% de la hauteur de la fenêtre */
+  width: 100vw; /* Utilise 100% de la largeur de la fenêtre */
+  text-align: center;
+  padding: 40px; /* Augmente la marge pour placer les éléments un peu plus haut */
+  box-sizing: border-box;
+  background-color: #f7f7f7; /* Fond clair */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Mode sombre : arrière-plan et texte */
+.dark-mode .home-container {
+  background-color: #333; /* Fond sombre */
+  color: #fff; /* Texte clair */
+}
+
+/* Mode clair : fond et texte normaux */
+.light-mode .home-container {
+  background-color: #f7f7f7; /* Fond clair */
+  color: #333; /* Texte sombre */
+}
+
+/* Titre principal avec une couleur différente pour PsyBot */
+h1 {
+  font-size: 4rem; /* Plus grand */
+  color: #6200ea; /* Couleur principale du texte */
+  margin-bottom: 20px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+/* Mode sombre : couleur du titre */
+.dark-mode h1 {
+  color: #bb86fc; /* Couleur titre en mode sombre */
+}
+
+/* Mode clair : couleur du titre */
+.light-mode h1 {
+  color: #6200ea; /* Couleur titre en mode clair */
+}
+
+/* "PsyBot" avec une couleur distincte correspondant à celle du logo */
+.highlighte {
+  color: #6200ea; /* Couleur distinctive pour PsyBot (modifiable selon ton logo) */
+}
+
+/* Définition de la phrase décrivant le chatbot */
+p {
+  font-size: 1.8rem; /* Plus grand et plus visible */
+  color: #555;
+  margin-bottom: 30px; /* Un peu plus d'espace avant les boutons */
+  transition: color 0.3s;
+}
+
+/* Mode sombre : couleur de la description */
+.dark-mode p {
+  color: #bbb; /* Texte plus clair en mode sombre */
+}
+
+/* Mode clair : couleur de la description */
+.light-mode p {
+  color: #555; /* Texte plus sombre en mode clair */
+}
+
+/* Bouton principal (commencer) */
+.start-button {
+  padding: 14px 24px;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #218838;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 30px; /* Ajoute de l'espace entre le texte et le bouton */
+}
+
+/* Mode sombre : bouton dans le mode sombre */
+.dark-mode .start-button {
+  background-color: #4caf50; /* Couleur différente en mode sombre */
+}
+
+/* Mode clair : bouton dans le mode clair */
+.light-mode .start-button {
+  background-color: #218838; /* Bouton vert clair en mode clair */
+}
+
+.start-button:hover {
+  background-color: #218838;
+  transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+/* Modale qui se superpose à la page */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s;
+}
+
+/* Contenu de la modale */
+.modal-content {
+  background: white;
+  padding: 30px;
+  width: 350px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Styles pour les boutons dans la modale */
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+.signupe-button, .logine-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0; /* Ajout d'espace entre les boutons */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.signupe-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.signupe-button:hover {
+  background-color: #218838;
+  transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+.logine-button {
+  background-color: #ffc107;
+  color: black;
+}
+
+.logine-button:hover {
+  background-color: #e0a800;
+  transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+/* Bouton de fermeture de la modale */
+.close-button {
+  background-color: red;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.close-button:hover {
+  background-color: darkred;
+  transform: scale(1.05); /* Effet d'agrandissement au survol */
+}

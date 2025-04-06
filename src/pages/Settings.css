@@ -1,0 +1,98 @@
+/* Styles globaux */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles pour le thème clair */
+body.light {
+  background-color: #f0f0f5;  /* Fond clair pour le thème clair */
+}
+
+body.light .settings-container {
+  background-color: #fff;  /* Fond blanc pour la section principale */
+  color: #000;  /* Texte noir pour le thème clair */
+}
+
+body.light .save-btn {
+  background-color: darkred;  /* Bouton avec couleur sombre pour le thème clair */
+}
+
+body.light .save-btn:hover {
+  background-color: red;
+}
+
+/* Styles pour le thème sombre */
+body.dark {
+  background-color: #121212;  /* Fond sombre pour le thème sombre */
+}
+
+body.dark .settings-container {
+  background-color: #333;  /* Fond plus sombre pour la section principale */
+  color: #fff;  /* Texte blanc pour le thème sombre */
+  box-shadow: 0px 4px 15px #333;  /* Ombre plus légère pour le thème sombre */
+}
+
+body.dark .save-btn {
+  background-color: #bb86fc;  /* Bouton violet clair pour le thème sombre */
+}
+
+body.dark .save-btn:hover {
+  background-color: #6200ea;  /* Bouton violet plus foncé pour l'effet hover */
+}
+
+/* Container principal */
+.settings-container {
+  width: 100vw;
+  max-width: 2200px;
+  height: 90vh;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.settings-title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.settings-section {
+  margin-bottom: 20px;
+}
+
+.settings-section label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save-btn {
+  padding: 15px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
