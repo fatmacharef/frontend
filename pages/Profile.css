@@ -1,0 +1,144 @@
+/* Styles globaux */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f5;
+}
+
+/* Conteneur principal du profil */
+.profile-container {
+  width: 100vw;
+  height: 90vh; /* Occupe tout l'écran */
+  background-color: #fff; /* Fond clair pour le mode clair */
+  border-radius: 0; /* Enlève les coins pour un plein écran pur */
+  box-shadow: none; /* Pas d'ombre pour plein écran */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centre tout verticalement */
+  text-align: center;
+}
+
+/* Titre du profil */
+.profile-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #6200ea; /* Couleur pour le mode clair */
+}
+
+/* Sections du profil */
+.profile-section p {
+  font-size: 1.3rem;
+  margin: 10px 0;
+  color: #333; /* Texte sombre pour le mode clair */
+}
+
+/* Section des boutons d'action */
+.profile-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Styles généraux des boutons */
+.action-btn,
+.delete-btn,
+.delete-account-btn {
+  padding: 14px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Bouton d'action */
+.action-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.action-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Bouton de suppression */
+.delete-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.delete-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Bouton de suppression du compte */
+.delete-account-btn {
+  background-color: darkred;
+  color: white;
+}
+
+.delete-account-btn:hover {
+  background-color: red;
+}
+
+/* Mode sombre */
+body.dark {
+  background-color: #121212; /* Fond sombre pour le mode sombre */
+}
+
+body.dark .profile-container {
+  background-color: #333; /* Fond sombre pour la page de profil */
+}
+
+body.dark .profile-title {
+  color: #bb86fc; /* Titre en violet pour le mode sombre */
+}
+
+body.dark .profile-section p {
+  color: #ccc; /* Texte clair pour le mode sombre */
+}
+
+body.dark .action-btn {
+  background-color: #6200ea; /* Bouton violet pour le mode sombre */
+}
+
+body.dark .action-btn:hover {
+  background-color: #3700b3; /* Violet plus foncé pour le survol */
+}
+
+body.dark .delete-btn {
+  background-color: #e0a800; /* Jaune pour le mode sombre */
+}
+
+body.dark .delete-btn:hover {
+  background-color: #c57d00; /* Jaune plus foncé au survol */
+}
+
+body.dark .delete-account-btn {
+  background-color: #b00020; /* Rouge foncé pour le mode sombre */
+}
+
+body.dark .delete-account-btn:hover {
+  background-color: #ff1744; /* Rouge plus clair au survol */
+}
+
+body[lang="ar"] {
+  direction: rtl; /* Alignement de texte pour les langues RTL */
+}
+
+body {
+  direction: ltr; /* Alignement de texte pour les langues LTR */
+}

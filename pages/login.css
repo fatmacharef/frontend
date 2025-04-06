@@ -1,0 +1,143 @@
+/* Conteneur principal de la page d'inscription */
+.inscrire-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  background: linear-gradient(to right, #e8f0fe, #ffffff); /* Dégradé clair pour le mode clair */
+  margin: 0;
+  padding: 0;
+}
+
+/* Carte d'inscription avec bord arrondi et ombre */
+.inscrire-card {
+  background: #ffffff; /* Fond blanc pour le mode clair */
+  padding: 2rem;
+  border-radius: 15px; /* Coins arrondis plus marqués */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée pour un effet 3D */
+  text-align: center;
+  width: 450px; /* Taille plus grande de la carte */
+  max-width: 90%; /* Empêche la carte de devenir trop grande sur les petits écrans */
+  position: relative;
+}
+
+/* Titre de l'inscription */
+.inscrire-title {
+  color: #6200ea; /* Couleur vive attirante */
+  font-size: 2rem; /* Taille plus grande */
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Highlight spécifique à PsyBot */
+.highlight {
+  color: #ff9800; /* Couleur distincte pour la partie "PsyBot" */
+}
+
+/* Sous-titre en couleur claire */
+.inscrire-subtitle {
+  color: #777; /* Gris clair pour le mode clair */
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Champs de saisie pour l'inscription */
+.inscrire-input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd; /* Bordure gris clair */
+  border-radius: 8px; /* Coins arrondis pour un effet doux */
+  font-size: 1rem;
+  color: #333; /* Texte noir pour la lisibilité */
+  background-color: #f9f9f9; /* Fond des champs de saisie */
+  transition: border-color 0.3s; /* Animation lors du focus */
+}
+
+/* Focus sur le champ de saisie */
+.inscrire-input:focus {
+  border-color: #6200ea; /* Bordure violette au focus */
+  outline: none;
+}
+
+/* Boutons d'action (S'inscrire) */
+.inscriree-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: darkred; /* Bouton rouge pour le mode clair */
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover sur le bouton */
+.inscriree-button:hover {
+  background: #b30000; /* Rouge plus foncé pour l'effet hover */
+}
+
+/* Message d'erreur */
+.error-message {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Image d'arrière-plan subtile */
+.inscrire-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.example.com/your-image.jpg') no-repeat center center/cover; /* Remplacez le lien par le vôtre */
+  opacity: 0.1; /* Légère opacité pour ne pas gêner la lisibilité */
+  border-radius: 15px;
+  z-index: -1; /* Assurez-vous que l'image est derrière le contenu */
+}
+
+/* Mode sombre */
+body.dark .inscrire-page {
+  background: linear-gradient(to right, #333, #121212); /* Dégradé sombre */
+}
+
+body.dark .inscrire-card {
+  background: #333; /* Fond sombre pour la carte */
+  color: #fff; /* Texte clair pour le mode sombre */
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); /* Ombre légère pour le mode sombre */
+}
+
+body.dark .inscrire-title {
+  color: #bb86fc; /* Titre en violet pour le mode sombre */
+}
+
+body.dark .inscrire-subtitle {
+  color: #ccc; /* Texte clair pour le mode sombre */
+}
+
+body.dark .inscrire-input {
+  background-color: #444; /* Fond sombre pour les champs de saisie */
+  color: #fff; /* Texte clair */
+  border: 1px solid #555; /* Bordure plus foncée */
+}
+
+body.dark .inscrire-input:focus {
+  border-color: #bb86fc; /* Bordure violette pour le mode sombre */
+}
+
+body.dark .inscriree-button {
+  background: #6200ea; /* Bouton violet pour le mode sombre */
+}
+
+body.dark .inscriree-button:hover {
+  background: #3700b3; /* Violet plus foncé pour le survol */
+}
+
+body.dark .error-message {
+  color: #ff3b30; /* Message d'erreur rouge vif pour le mode sombre */
+}
