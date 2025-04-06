@@ -1,0 +1,90 @@
+{
+  
+    "profileTitle": "User Profile",
+    "name": "Name",
+    "language": "Language",
+    "viewHistory": "View History",
+    "deleteHistory": "Delete History",
+    "deleteAccount": "Delete Account",
+    "guest": "Guest",
+    "viewHistoryAlert": "History feature coming soon!",
+    "confirmDeleteHistory": "Are you sure you want to delete the history?",
+    "historyDeleted": "History successfully deleted.",
+    "confirmDeleteAccount": "Are you sure you want to delete your account? This action is irreversible.",
+    "accountDeleted": "Account successfully deleted.",
+    "accountDeleteError": "Error deleting account. Please re-login.",
+    
+    
+      "settings": "Settings",
+      "theme": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "chooseLanguage": "Choose Language",
+      "save": "Save",
+      "settingsSaved": "Settings saved successfully!",
+      
+        "welcome": "Welcome to",
+        "uniqueExperience": "Join us for a unique experience",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Password",
+        "signup": "Sign up",
+        "login": "Log in",
+        "signupError": "An error occurred during sign up. Please try again.",
+        "loginError": "An error occurred during login. Please check your credentials.",
+      
+      
+    
+    
+    
+  
+  
+  "navbar": {
+      "chat": "Chat",
+      "settings": "Settings",
+      "profile": "Profile",
+      "logout": "Logout",
+      "login": "Sign up / Login"
+    },
+    
+    "home": {
+        "welcome": "Welcome to",
+        "description": "An intelligent chatbot to listen and support you.",
+        "start": "Start",
+        "modalTitle": "Welcome!",
+        "modalText": "Sign up or log in to continue",
+        "signup": "Sign Up",
+        "login": "Log In",
+        "close": "Close"
+      },
+      
+      "signup": {
+          "welcome": "Welcome to",
+          "subtitle": "Join us for a unique experience",
+          "email": "Email",
+          "password": "Password",
+          "button": "Sign Up"
+        },
+        
+          "login": {
+            "welcome": "Welcome back to",
+            "subtitle": "Log in to continue your support",
+            "email": "Email",
+            "password": "Password",
+            "button": "Log In"
+          },
+          
+            "chat": {
+              "title": "How can I help you?",
+              "placeholder": "Ask a question...",
+              "send": "Send",
+              "error": "Connection error"
+            }
+          
+          
+        
+        
+      
+      
+    
+  
+}
