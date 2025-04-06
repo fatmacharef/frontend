@@ -1,0 +1,84 @@
+{
+  
+    "profileTitle": "Profil de l'utilisateur",
+    "name": "Nom",
+    "language": "Langue",
+    "viewHistory": "Voir l'historique",
+    "deleteHistory": "Supprimer l'historique",
+    "deleteAccount": "Supprimer le compte",
+    "guest": "Invité",
+    "viewHistoryAlert": "Fonctionnalité d'historique à venir !",
+    "confirmDeleteHistory": "Êtes-vous sûr de vouloir supprimer l'historique ?",
+    "historyDeleted": "Historique supprimé avec succès.",
+    "confirmDeleteAccount": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+    "accountDeleted": "Compte supprimé avec succès.",
+    "accountDeleteError": "Erreur lors de la suppression du compte. Veuillez vous reconnecter.",
+    
+    
+      "settings": "Paramètres",
+      "theme": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "chooseLanguage": "Choisir la langue",
+      "save": "Enregistrer",
+      "settingsSaved": "Paramètres enregistrés avec succès !",
+    
+      "welcome": "Bienvenue sur",
+      "uniqueExperience": "Rejoignez-nous pour une expérience unique",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Mot de passe",
+      "signup": "S'inscrire",
+      "login": "Se connecter",
+      "signupError": "Une erreur s'est produite lors de l'inscription. Veuillez réessayer.",
+      "loginError": "Une erreur s'est produite lors de la connexion. Veuillez vérifier vos informations.",
+    
+    
+  
+  
+  "navbar": {
+      "chat": "Chat",
+      "settings": "Paramètres",
+      "profile": "Profil",
+      "logout": "Déconnexion",
+      "login": "S'inscrire / Se connecter"
+    },
+  
+    "home": {
+        "welcome": "Bienvenue dans",
+        "description": "Un chatbot intelligent pour vous écouter et vous accompagner.",
+        "start": "Commencer",
+        "modalTitle": "Bienvenue !",
+        "modalText": "Inscrivez-vous ou connectez-vous pour continuer",
+        "signup": "S'inscrire",
+        "login": "Se connecter",
+        "close": "Fermer"
+      },
+      "signup": {
+          "welcome": "Bienvenue sur",
+          "subtitle": "Rejoignez-nous pour une expérience unique",
+          "email": "Email",
+          "password": "Mot de passe",
+          "button": "S'inscrire"
+        },
+        
+          "login": {
+            "welcome": "Heureux de vous revoir sur",
+            "subtitle": "Connectez-vous pour continuer avec votre accompagnement",
+            "email": "Email",
+            "password": "Mot de passe",
+            "button": "Se connecter"
+          },
+          "chat": {
+              "title": "Comment puis-je vous aider ?",
+              "placeholder": "Poser une question...",
+              "send": "Envoyer",
+              "error": "Erreur de connexion"
+            
+          }
+          
+        
+        
+      
+    
+  
+}
