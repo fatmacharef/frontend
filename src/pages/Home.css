@@ -1,108 +1,119 @@
-/* Conteneur principal de la page d'accueil */
+/* ----- HOME CONTAINER PRINCIPAL ----- */
 .home-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Positionne le contenu plus haut */
+  justify-content: flex-start;
   align-items: center;
-  height: 90vh; /* Utilise 100% de la hauteur de la fenêtre */
-  width: 100vw; /* Utilise 100% de la largeur de la fenêtre */
+  height: 90vh;
+  width: 100vw;
   text-align: center;
-  padding: 40px; /* Augmente la marge pour placer les éléments un peu plus haut */
+  padding-top: 0px; /* Laisse de l'espace pour le navbar */
+  padding-left: 0px;
+  padding-right: 40px;
+  background-color: #fff5eb;
+  background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   box-sizing: border-box;
-  background-color: #f7f7f7; /* Fond clair */
-  transition: background-color 0.3s, color 0.3s;
+  
 }
 
-/* Mode sombre : arrière-plan et texte */
-.dark-mode .home-container {
-  background-color: #333; /* Fond sombre */
-  color: #fff; /* Texte clair */
+/* ----- CONTENU PRINCIPAL ----- */
+.home-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 990px;
+  width: 80%;
+  gap: 0px;
 }
 
-/* Mode clair : fond et texte normaux */
-.light-mode .home-container {
-  background-color: #f7f7f7; /* Fond clair */
-  color: #333; /* Texte sombre */
+/* ----- TEXTE D'ACCUEIL ----- */
+.home-text {
+  flex: 1;
 }
 
-/* Titre principal avec une couleur différente pour PsyBot */
-h1 {
-  font-size: 4rem; /* Plus grand */
-  color: #6200ea; /* Couleur principale du texte */
-  margin-bottom: 20px;
+.home-text h1 {
+  margin-top: 30px;
+
+  font-size: 3rem;
+  color: #3e2c23;
   font-weight: bold;
+  margin-bottom: 10px;
   transition: color 0.3s;
 }
 
-/* Mode sombre : couleur du titre */
+.home-text p {
+  font-size: 1.7rem;
+  color: #3e2c23;
+  margin-bottom: 30px;
+  transition: color 0.7s;
+}
+
+.highlightee {
+  color: #e08b52; /* Couleur dominante type #ffa065 */
+}
+
+/* Mode sombre */
 .dark-mode h1 {
-  color: #bb86fc; /* Couleur titre en mode sombre */
+  margin-top: 30px;
+  color: #3e2c23;
 }
-
-/* Mode clair : couleur du titre */
-.light-mode h1 {
-  color: #6200ea; /* Couleur titre en mode clair */
-}
-
-/* "PsyBot" avec une couleur distincte correspondant à celle du logo */
-.highlighte {
-  color: #6200ea; /* Couleur distinctive pour PsyBot (modifiable selon ton logo) */
-}
-
-/* Définition de la phrase décrivant le chatbot */
-p {
-  font-size: 1.8rem; /* Plus grand et plus visible */
-  color: #555;
-  margin-bottom: 30px; /* Un peu plus d'espace avant les boutons */
-  transition: color 0.3s;
-}
-
-/* Mode sombre : couleur de la description */
 .dark-mode p {
-  color: #bbb; /* Texte plus clair en mode sombre */
+  color: #bbb;
 }
-
-/* Mode clair : couleur de la description */
 .light-mode p {
-  color: #555; /* Texte plus sombre en mode clair */
+  color: #795847;
 }
 
-/* Bouton principal (commencer) */
-.start-button {
-  padding: 14px 24px;
+/* ----- BOUTON COMMENCER ----- */
+.starte-button {
+  padding: 12px 40px;
   font-size: 1.5rem;
-  color: white;
-  background-color: #218838;
+  color: #fff;
+  background-color: #db8048;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  margin-top: 10px;
   transition: background-color 0.3s, transform 0.3s;
-  margin-top: 30px; /* Ajoute de l'espace entre le texte et le bouton */
 }
 
-/* Mode sombre : bouton dans le mode sombre */
+.starte-button:hover {
+  background-color: #ad6a40;
+}
+
+/* Mode sombre */
 .dark-mode .start-button {
-  background-color: #4caf50; /* Couleur différente en mode sombre */
+  background-color: #4caf50;
 }
 
-/* Mode clair : bouton dans le mode clair */
-.light-mode .start-button {
-  background-color: #218838; /* Bouton vert clair en mode clair */
+/* ----- IMAGE ILLUSTRATION ----- */
+.home-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 0;
+  margin-bottom: 0px;       /* Décalage vers le haut */
+  margin-right:200px;
 }
 
-.start-button:hover {
-  background-color: #218838;
-  transform: scale(1.05); /* Effet d'agrandissement au survol */
+.home-image img {
+  width: 200%;
+  max-width: 900px;
+  height: auto;
 }
 
-/* Modale qui se superpose à la page */
-.modal-overlay {
+/* ----- MODALE ----- */
+.modale-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(53, 50, 50, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,66 +121,59 @@ p {
   transition: opacity 0.3s;
 }
 
-/* Contenu de la modale */
-.modal-content {
-  background: white;
+.modale-contentd {
+  background: #f8f7f7;
   padding: 30px;
-  width: 350px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s, opacity 0.3s;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  height: 70vh;
+  overflow-y: auto;
+  position: relative;
 }
 
-/* Styles pour les boutons dans la modale */
-.modal-buttons {
+/* ----- BOUTONS DE LA MODALE ----- */
+.modalee-buttons {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  gap: 15px;
   margin: 15px 0;
 }
 
-.signupe-button, .logine-button {
-  padding: 12px 20px;
+.signupee-button,
+.loginee-buttons {
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  margin: 10px 0; /* Ajout d'espace entre les boutons */
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.signupe-button {
-  background-color: #28a745;
-  color: white;
-}
-
-.signupe-button:hover {
-  background-color: #218838;
-  transform: scale(1.05); /* Effet d'agrandissement au survol */
-}
-
-.logine-button {
-  background-color: #ffc107;
+  padding: 12px 20px;
+  font-size: 1rem;
   color: black;
 }
 
-.logine-button:hover {
-  background-color: #e0a800;
-  transform: scale(1.05); /* Effet d'agrandissement au survol */
+.signupee-button {
+  background-color: #e4ca61;
+}
+.signupee-button:hover {
+  background-color: #ccb042;
 }
 
-/* Bouton de fermeture de la modale */
-.close-button {
-  background-color: red;
-  color: white;
-  padding: 8px 12px;
+.loginee-buttons {
+  background-color: #f8a876;
+}
+.loginee-buttons:hover {
+  background-color: #dd9162;
+}
+
+.closee-button {
+  background-color: #d6773c;
+  color: rgb(17, 16, 16);
+  padding: 10px 24px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: background-color 0.3s, transform 0.3s;
 }
-
-.close-button:hover {
-  background-color: darkred;
-  transform: scale(1.05); /* Effet d'agrandissement au survol */
+.closee-button:hover {
+  background-color: #d68a5b;
+  transform: scale(1.05);
 }
