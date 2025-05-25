@@ -45,20 +45,55 @@ function Navbar() {
   const handleLanguageChange = (e) => {
     i18n.changeLanguage(e.target.value);
   };
+  const isAdminPage = location.pathname === "/admin";
 
   return (
-    <nav className="navbar">
-      <h2 className="logo">PsyBot</h2>
+    <nav className={`navbar ${isAdminPage ? "admin" : ""}`}>
 
-      {location.pathname !== "/chat" &&
-        location.pathname !== "/inscrire" &&
-        location.pathname !== "/signup" &&
-        location.pathname !== "/" &&
-        location.pathname !== "/login" && (
-          <div className="nav-links">
-            <Link to="/chat">{t("navbar.chat")}</Link>
-          </div>
-        )}
+<div className="logo-container">
+  <img
+    src="/logo.png"
+    alt="PsyBot Logo"
+    className="logo"
+  />
+</div>
+
+
+      <div className="nav-center">
+  {location.pathname !== "/chat" &&
+    location.pathname !== "/inscrire" &&
+    location.pathname !== "/signup" &&
+    location.pathname !== "/" &&
+    location.pathname !== "/login" &&
+    location.pathname !== "/livechat" &&
+    location.pathname !== "/choixchat" &&
+    location.pathname !== "/psychologue" &&
+    location.pathname !== "/admin" && (
+      <div className="nav-links">
+        <Link to="/chat">{t("navbar.chat")}</Link>
+      </div>
+
+     
+  )}
+   <div className="nav-links">
+              <Link to="/community">{t("community")}</Link>
+      </div>
+  
+  {(location.pathname !== "/home" &&
+   
+    location.pathname !== "/profile" &&
+    location.pathname !== "/settings") && (
+    <div className="language-selector">
+      <select onChange={handleLanguageChange} value={i18n.language}>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  )}
+</div>
+
+
 
       <div className="user-section">
         {user ? (
@@ -69,45 +104,46 @@ function Navbar() {
               ) : (
                 <div
                   className="profile-placeholder"
-                  style={{ backgroundColor: getColorFromEmail(user.email) }}
                 >
                   {getInitial(user.email)}
                 </div>
               )}
             </div>
-
+ 
             {menuOpen && (
-              <div className="dropdown-menu">
-                <Link to="/profile" className="dropdown-item">
-                  {t("navbar.profile")}
-                </Link>
-                <Link to="/settings" className="dropdown-item">
-                  {t("navbar.settings")}
-                </Link>
-                <button className="dropdown-item logout" onClick={handleLogout}>
-                  {t("navbar.logout")}
-                </button>
-              </div>
-            )}
+  <div className="dropdown-menu">
+    {location.pathname === "/admin" || location.pathname === "/psychologue"||location.pathname === "/psychoclinique"||location.pathname === "/livechat"||location.pathname === "/patient"||location.pathname === "/forum"|| location.pathname === "/choixchat"? (
+  // Si on est sur l'interface admin ou psychologue, on affiche juste "Déconnexion"
+  <button className="dropdown-item logout" onClick={handleLogout}>
+    {t("navbar.logout")}
+  </button>
+) : (
+  // Pour les autres (utilisateurs classiques), on affiche plus d'options
+  <>
+    <Link to="/patient" className="dropdown-item">
+      {t("navbar.profile")}
+    </Link>
+
+    <button className="dropdown-item logout" onClick={handleLogout}>
+      {t("navbar.logout")}
+    </button>
+  </>
+)}
+
+  </div>
+)}
+
           </div>
         ) : (
-          <Link to="/signup" className="login-btn">
-            {t("navbar.login")}
+          <Link to="/signupe" className="logind-btn">
+            {t()}
           </Link>
         )}
 
-        {/* Sélecteur de langue */}
-        {location.pathname !== "/home" && location.pathname !== "/chat" &&
-          location.pathname !== "/profile" &&
-          location.pathname !== "/settings" && (
-            <div className="language-selector">
-              <select onChange={handleLanguageChange} value={i18n.language}>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="ar">العربية</option>
-              </select>
-            </div>
-          )}
+       
+          
+        
+          
       </div>
     </nav>
   );
