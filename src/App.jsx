@@ -10,10 +10,22 @@ import Chat from "./pages/Chat";
 import Settings from "./pages/Settings";
 import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
+import AdminPanel from "./pages/AdminPanel";
+import LiveChat from "./pages/LiveChat"; // Ajuste le chemin si besoin
+import ChoixChat from "./pages/ChoixChat";
+import Psychologue from "./pages/Psychologue"; // 👈 Import du composant
+import CommunityFeed from "./pages/CommunityFeed"; // ajuste le chemin si nécessaire
+import Forum from "./pages/Forum"; // ajuste le chemin si nécessaire
+import Chatbot from "./pages/Chatbot"; // ajuste le chemin si nécessaire
+import Psychoclinique from "./pages/Psychoclinique"; // ajuste le chemin si nécessaire
+import Patient from "./pages/Patient"; // ajuste le chemin si nécessaire
+
+
+
 
 function App() {
   const [user, setUser] = useState(null);
-  const [theme, setTheme] = useState("light"); // ← AJOUT : état du thème
+  const [theme, setTheme] = useState("light"); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -38,6 +50,26 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/inscrire" element={<Inscrire />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/community" element={<CommunityFeed />} />
+        <Route path="/forum" element={<Forum />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/psychoclinique" element={<Psychoclinique />} />
+        <Route path="/patient" element={<Patient />} />
+
+
+
+
+
+
+        <Route path="/livechat" element={user ? <LiveChat user={user} /> : <Home />} />
+        <Route path="/choixchat" element={user ? <ChoixChat /> : <Home />} />
+        <Route path="/psychologue" element={<Psychologue />} /> {/* ✅ Route ajoutée */}
+
+
+
+
+
       </Routes>
     </Router>
   );
