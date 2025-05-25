@@ -4,7 +4,7 @@
   align-items: center;
   height: 86vh;
   width: 100vw;
-  background-image: url('img.svg');
+  background-image: url('../img.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
