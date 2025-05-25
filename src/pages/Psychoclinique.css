@@ -1,0 +1,257 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #FFF0E0;
+  color: #4B2E2E;
+}
+ 
+.main-container {
+  display: flex;
+  height: 86vh;
+  width:100vw;
+}
+
+.left-panel, .center-panel, .right-panel {
+  padding: 20px;
+  overflow-y: auto;
+  height: 86vh;
+}
+
+.left-panel {
+  width: 20%;
+  background-color: #FFE0C1;
+  border-right: 2px solid #FFBC80;
+}
+
+.center-panel {
+  width: 40%;
+  background-color: #ffffff;
+  border-right: 2px solid #FFBC80;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  height: 87vh; /* ou une hauteur fixe comme 600px si tu préfères */
+  width: 100%;
+  max-width: 600px;
+  border-left: 1px solid #ccc;
+  padding: 0;
+  box-sizing: border-box;
+}
+.patient-list {
+  padding: 0;
+}
+
+.patient-item {
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  background-color: #FFD6A5;
+  transition: background 0.2s ease;
+}
+
+.patient-item:hover {
+  background-color: #FFB77E;
+}
+
+.patient-item.active {
+  background-color: #FFA366;
+  font-weight: bold;
+}
+
+.card {
+  background-color: #FFF1DC;
+  border: 1px solid #FFCBA4;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.appointments-section ul {
+  padding: 0;
+}
+
+.appointment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFEFD5;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.messages-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.messages-section h2 {
+  padding: 16px;
+  margin: 0;
+  background-color: #f5eeee;
+  border-bottom: 1px solid #bebdbd;
+}
+.messages-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background-color: #fafafa;
+}
+
+.messages-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.message-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  word-break: break-word;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #FFBC80;
+  resize: none;
+}
+
+.btne-orange {
+  align-self: flex-end;
+  background-color: #e29154;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-orange:hover {
+  background-color: #FF7F2A;
+}
+
+.btn-outline {
+  background: none;
+  border: 1px solid #FF914D;
+  color: #D2691E;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: #FFD6A5;
+}
+.message-item {
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.from-patient {
+  background-color: #f5dfcc;
+  align-self: flex-start;
+}
+
+.from-psy {
+  background-color: #e6e0db;
+  align-self: flex-end;
+}
+.input-section {
+  padding: 12px;
+  border-top: 1px solid #b4b0b0;
+  background-color: #f5eeee;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-section textarea {
+  resize: none;
+  height: 80px;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}.rdvs-section {
+  margin-top: 20px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Conteneur scrollable */
+.rdvs-scroll {
+  max-height: 186px;      /* hauteur fixe souhaitée */
+  overflow-y: auto;       /* barre de défilement verticale */
+  padding-right: 6px;     /* petit espace pour ne pas masquer le texte */
+}
+
+/* Style de la liste */
+.rdvs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rdvs-list li {
+  padding: 8px 4px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
+}
+
+.rdvs-list li:last-child {
+  border-bottom: none;
+}
+
+.psychologist-info h1{
+    font-size: 1.9rem;
+}
+.psychologist-info p{
+    font-size: 1.2rem;
+}
+.rdv-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.rdv-buttons button {
+  margin-left: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.rdv-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.rdv-buttons button:last-child {
+  background-color: #dc3545;
+}
+
+.rdv-buttons button:last-child:hover {
+  background-color: #a71d2a;
+}
