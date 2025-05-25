@@ -1,0 +1,83 @@
+.livechat-page {
+  width: 100vw;
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;}
+
+.livechat-container {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  color: white;
+}
+
+.livechat-header {
+  padding: 1rem;
+  font-weight: bold;
+  background-color: transparent;
+  color: black;
+  text-align: center;
+}
+
+.livechat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.message {
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #ffa065;
+  font-size: 1rem;
+}
+
+.psychologue {
+  align-self: flex-start;
+  background-color: #945019;
+}
+
+.livechat-input {
+  display: flex;
+  padding: 1rem;
+  background-color: #fafdfb;
+}
+
+.livechat-input input {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+}
+
+.livechat-input button {
+  margin-left: 0.5rem;
+  background-color: #a0600c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem;
+  cursor: pointer;
+}
+.livechat-disabled {
+  padding: 2rem;
+  text-align: center;
+  color: #aaa;
+  font-style: italic;
+}
