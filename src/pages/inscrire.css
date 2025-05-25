@@ -1,99 +1,125 @@
+/* Styles globaux */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height:70%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Conteneur principal de la page d'inscription */
-.inscrire-page {
+.signupe-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90vh;
   width: 100vw;
-  background: linear-gradient(to right, #e8f0fe, #ffffff); /* Dégradé clair et doux */
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s, color 0.3s;
+  background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+ 
 }
 
 /* Carte d'inscription avec bord arrondi et ombre */
-.inscrire-card {
-  background: #ffffff; /* Fond blanc pour l'inscription */
+.signupe-card {
+  background: #fff;
   padding: 2rem;
-  border-radius: 15px; /* Coins arrondis plus marqués */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée pour un effet 3D */
-  text-align: center;
-  width: 450px; /* Taille plus grande de la carte */
-  max-width: 90%; /* Empêche la carte de devenir trop grande sur les petits écrans */
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   position: relative;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 /* Titre de l'inscription */
-.inscrire-title {
-  color: #6200ea; /* Couleur vive attirante */
-  font-size: 2rem; /* Taille plus grande */
+.signupe-title {
+  color: #3e2c23; /* Couleur vive attirante */
+  font-size: 1.4rem; /* Taille plus grande */
   font-weight: bold;
   margin-bottom: 1.5rem;
-  transition: color 0.3s;
 }
 
 /* Highlight spécifique à PsyBot */
-.highlight {
-  color: #ff9800; /* Couleur distincte pour la partie "PsyBot" */
-}
+
 
 /* Sous-titre en couleur claire */
-.inscrire-subtitle {
-  color: #777; /* Gris clair */
-  font-size: 1rem;
+.signupe-subtitle {
+  color: #775544; /* Gris clair */
+  font-size: 1.2rem;
   margin-bottom: 1rem;
-  transition: color 0.3s;
+  margin-left: 80px;
+  
 }
 
 /* Champs de saisie pour l'inscription */
-.inscrire-input {
-  width: 100%;
+.signupe-input {
+  width: 90%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ddd; /* Bordure gris clair */
-  border-radius: 8px; /* Coins arrondis pour un effet doux */
+  border: 1px solid #b69484; /* Bordure gris clair */
+  border-radius: 17px; /* Coins arrondis pour un effet doux */
   font-size: 1rem;
   color: #333; /* Texte noir pour la lisibilité */
-  background-color: #f9f9f9; /* Fond des champs de saisie */
-  transition: border-color 0.3s, background-color 0.3s;
+  background-color: #f1dacf; /* Fond des champs de saisie */
+  transition: border-color 0.3s; /* Animation lors du focus */
+  margin-left: 20px;
 }
 
+
 /* Focus sur le champ de saisie */
-.inscrire-input:focus {
-  border-color: #6200ea; /* Bordure violette au focus */
+.signupe-input:focus {
+  border-color: #c98766; /* Bordure violette au focus */
   outline: none;
 }
 
-/* Boutons d'action (S'inscrire) */
-.inscriree-button {
-  width: 100%;
+/* Boutons d'action (S'inscrire, Se connecter, Accueil) */
+.signupe-buttonn {
+  width: 90%;
   padding: 14px;
   margin-top: 15px;
   border: none;
-  border-radius: 8px;
-  background: darkred; /* Couleur du bouton */
-  color: white;
+  border-radius: 15px;
+  color: #3e2c23;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  background-color: #c98766;
+  transition: background-color 0.3s;
+  margin-left: 20px;
 }
 
-/* Hover sur le bouton */
-.inscriree-button:hover {
-  background-color: #d32f2f; /* Changement de couleur au survol */
-  transform: scale(1.05); /* Léger agrandissement pour l'effet */
+
+
+
+.home-button {
+  background: red; /* Bouton rouge */
 }
 
-/* Message d'erreur */
-.error-message {
-  color: red;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+/* Hover sur les boutons */
+.signupe-buttonn:hover {
+  background: #b97756; /* Vert plus foncé pour l'effet hover */
+}
+
+.login-button:hover {
+  background: #e0a800; /* Jaune plus foncé pour l'effet hover */
+}
+
+.home-button:hover {
+  background: darkred; /* Rouge plus foncé pour l'effet hover */
 }
 
 /* Image d'arrière-plan subtile */
-.inscrire-card:before {
+.signup-card:before {
   content: "";
   position: absolute;
   top: 0;
@@ -106,60 +132,63 @@
   z-index: -1; /* Assurez-vous que l'image est derrière le contenu */
 }
 
-/* Mode clair */
-body.light .inscrire-page {
-  background: linear-gradient(to right, #e8f0fe, #ffffff); /* Dégradé doux clair */
-}
-
-body.light .inscrire-card {
-  background-color: #ffffff; /* Fond blanc pour le mode clair */
-}
-
-body.light .inscrire-title {
-  color: #6200ea; /* Couleur titre vive */
-}
-
-body.light .inscrire-subtitle {
-  color: #777; /* Gris clair pour le texte */
-}
-
-body.light .inscrire-input {
-  background-color: #f9f9f9; /* Fond clair pour les champs */
-}
-
-body.light .inscriree-button {
-  background-color: darkred; /* Bouton avec couleur claire */
-}
-
 /* Mode sombre */
-body.dark .inscrire-page {
-  background: #333; /* Fond sombre pour la page */
-  color: white; /* Texte en blanc pour contraste */
+body.dark {
+  background-color: #121212; /* Fond sombre pour le mode sombre */
 }
 
-body.dark .inscrire-card {
-  background-color: #444; /* Fond de carte sombre */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Ombre plus marquée */
+body.dark .signup-container {
+  background: linear-gradient(to right, #2e2e2e, #121212); /* Dégradé sombre pour la page d'inscription */
 }
 
-body.dark .inscrire-title {
-  color: #ff9800; /* Couleur titre différente pour se démarquer */
+body.dark .signup-card {
+  background: #333; /* Carte sombre pour le mode sombre */
+  color: #fff; /* Texte blanc */
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); /* Ombre plus douce */
 }
 
-body.dark .inscrire-subtitle {
-  color: #bbb; /* Texte gris clair pour mode sombre */
+body.dark .signup-title {
+  color: #bb86fc; /* Couleur du titre pour le mode sombre */
 }
 
-body.dark .inscrire-input {
-  background-color: #555; /* Fond sombre pour les champs */
-  color: white; /* Texte en blanc */
-  border-color: #bbb; /* Bordure gris clair */
+body.dark .signup-input {
+  background-color: #444; /* Fond sombre pour les champs de saisie */
+  color: #fff; /* Texte blanc pour les champs */
+  border-color: #777; /* Bordure grise claire */
 }
 
-body.dark .inscriree-button {
-  background-color: #f44336; /* Bouton rouge pour mode sombre */
+body.dark .signup-input:focus {
+  border-color: #bb86fc; /* Bordure violette au focus */
 }
 
-body.dark .inscriree-button:hover {
-  background-color: #d32f2f; /* Changement de couleur au survol */
+body.dark .signup-button {
+  background: #6200ea; /* Bouton violet clair pour le mode sombre */
+}
+
+body.dark .login-button {
+  background: #e0a800; /* Bouton jaune pour le mode sombre */
+}
+
+body.dark .home-button {
+  background: darkred; /* Bouton rouge pour le mode sombre */
+}
+
+body.dark .signup-button:hover {
+  background: #3700b3; /* Violet plus foncé pour l'effet hover */
+}
+
+body.dark .login-button:hover {
+  background: #c57d00; /* Jaune plus foncé pour l'effet hover */
+}
+
+body.dark .home-button:hover {
+  background: darkred; /* Rouge plus foncé pour l'effet hover */
+}
+
+body[lang="ar"] {
+  direction: rtl;
+}
+
+body {
+  direction: ltr;
 }
