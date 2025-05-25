@@ -1,0 +1,134 @@
+.choixchat-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+  width: 100vw;
+  background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.choixchat-container {
+  text-align: center;
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.choixchat-title {
+  color: #3e2c23;
+  margin-bottom: 40px;
+  font-size: 2rem;
+}
+
+/* =========================== */
+/* Carte contenant img + texte */
+/* =========================== */
+.choixchat-images {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.choixchat-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.choixchat-img-container {
+  background: linear-gradient(145deg, #fff8e7, #fff2cc);
+  border: 3px solid #d4af37;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 340px;
+  min-height: 300px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.choixchat-img-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.6);
+}
+
+.choixchat-img {
+  width: 210px; /* Agrandie depuis 90px */
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+
+.choixchat-description {
+  font-size: 0.85rem;
+  color: #0f0e0e;
+  line-height: 1.4;
+  margin-top: auto;
+  max-width: 400px;
+  font-weight: bold; /* ✅ Texte en gras */
+}
+
+/* =========================== */
+/* Modal clinique              */
+/* =========================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.clinique-list {
+  list-style: none;
+  padding: 0;
+}
+
+.clinique-list li {
+  margin: 10px 0;
+  padding: 10px;
+  background: #fae3c9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.clinique-list li:hover {
+  background: #e0e0e0;
+}
+
+.annuler {
+  align-self: center;
+  padding: 6px 12px;
+  border: none;
+  background-color: #e92e2e;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
