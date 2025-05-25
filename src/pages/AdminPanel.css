@@ -1,0 +1,231 @@
+/*==================  VARIABLES COULEURS  ==================*/
+:root{
+  --color-orange:#ffa065;
+  --color-peach :#fbbf24;
+  --color-bg    :#f1f1ff;
+  --color-text  :#4a4a4a;
+   --color-psychologist: #ffa065; /* orange */
+  --color-psybot: #fbbf24; /* couleur pêche claire */
+  --color-both: #e62c2c; /* violet par exemple */
+
+}
+
+  
+
+
+/*==================  RESET & BASE  ==================*/
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body,#root{
+  width:100vw;height:100vh;overflow:hidden;          /* <- bloque tout scroll global */
+  font-family:"Segoe UI",Tahoma,sans-serif;
+   background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;color:var(--color-text)
+}
+
+/*==================  WRAPPER  ==================*/
+.admin-wrapper{display:flex;flex-direction:column;height:100%}
+
+/*==================  TOP BAR  ==================*/
+.top-bar{
+  position:fixed;inset:0 0 auto 0;height:50px;
+  display:flex;align-items:center;padding:0 1rem;z-index:1001;
+   background:linear-gradient(180deg,var(--color-orange),var(--color-orange));
+  color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.15)
+}
+.menu-btn{font-size:26px;background:none;border:none;color:#fff;cursor:pointer;margin-right:1rem}
+.clinic-title{flex-grow:1;font-weight:700;font-size:1.2rem}
+.add-btn{
+  background:#fff;border:none;color:var(--color-orange);padding:6px 14px;border-radius:22px;
+  font-weight:600;cursor:pointer;box-shadow:0 0 8px rgba(255,165,0,.4)
+}
+
+/*==================  DRAWER  ==================*/
+.drawer{
+  position:fixed;top:50px;left:0;width:240px;height:calc(100% - 50px);
+  background:linear-gradient(180deg,var(--color-orange),var(--color-orange));
+  transform:translateX(-250px);transition:.3s;
+  overflow:auto;z-index:1000;color:#fff
+}
+.drawer.open{transform:translateX(0)}
+.drawer ul{list-style:none}
+.drawer li{
+  padding:14px 22px;font-weight:600;cursor:pointer;
+}
+.drawer li:hover,.drawer li.active{background:rgba(255,255,255,.25)}
+ 
+/*==================  ZONE CONTENU  ==================*/
+.cards{
+  /* remplit tout l’espace restant, sans scroll */
+  position:fixed;top:50px;right:0;bottom:0;left:0;
+  padding:1rem 1.5rem; background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;;
+  transition:margin-left .3s;
+}
+.cards.menu-open{margin-left:240px}
+
+/*==================  DASHBOARD 2×2 ==================*/
+.dashboard-grid{
+  height:100%;display:grid;gap:1rem;
+  grid-template-columns:repeat(2,1fr);
+  grid-template-rows:repeat(2,1fr);          /* 4 cases égales */
+}
+.dashboard-grid .carde{
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:.7rem .9rem;border-radius:8px;background:#fff;
+  box-shadow:0 1px 4px rgba(245,166,35,.25)
+}
+
+/* éléments graphiques confinés */
+.donut,.pie{max-height:140px;margin-bottom:.5rem}
+
+.xlabels{display:flex;justify-content:space-between;font-size:.7rem}
+
+/* Donut / pie */
+.donut,.pie{width:120px;height:120px;border-radius:50%;margin:0 auto 1rem;position:relative;background:var(--color-peach);box-shadow:0 0 8px rgba(255,165,0,.4)}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:700;font-size:1.4rem;color:var(--color-orange)}
+
+.legend{display:flex;justify-content:center;gap:1rem;font-weight:600;color:#4B2E2E}
+.legend div{width:14px;height:14px;border-radius:3px}
+.color-psychologist{background:var(--color-orange)}
+.color-psybot{background:var(--color-peach)}
+.color-both{background:var(--color-both) }
+
+/* Response rows */
+.response-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.response-row label{flex-basis:120px;font-weight:600;font-size:.85rem}
+.response-row .bar{flex-grow:1;height:14px;background:#f0e5d7;border-radius:7px;overflow:hidden}
+.response-row .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--color-peach),var(--color-orange))}
+
+/*==================  TABLES (autres vues)  ==================*/
+.carde{background:#fff;padding:.8rem;border-radius:8px;box-shadow:0 1px 4px rgba(245,166,35,.25);margin-bottom:1rem}
+table{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:.9rem}
+thead{background:var(--color-orange);color:#fff}
+th,td{padding:.45rem .7rem;border:1px solid #f4c55c;text-align:left}
+
+/*==================  RESPONSIVE  ==================*/
+@media(max-width:740px){
+  .drawer{width:200px}
+  .cards.menu-open{margin-left:200px}
+  .dashboard-grid{
+    grid-template-columns:1fr;grid-template-rows:repeat(4,1fr);
+  }
+}
+
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  text-align: center;
+  color: #333;
+  pointer-events: none;
+}
+.carde {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.legend-item span {
+  font-size: 0.9rem;
+}
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  width: 100px;
+  text-align: right;
+  font-size: 14px;
+  color: #333;
+}
+
+.bar-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  transition: width 0.4s ease;
+  color: #4B2E2E;
+}
+
+.percent {
+  margin-left: 8px;
+  font-size: 15px;
+  color: #4B2E2E;
+  white-space: nowrap;
+}
+
+
+
+.bar-graphe {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 15px;
+  height: 240px; /* hauteur totale pour gérer l'espace */
+  padding: 10px 0;
+  overflow-x: auto;
+}
+
+.bar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px; /* largeur colonne */
+  flex-shrink: 0; /* éviter de rétrécir */
+}
+
+.bar-count {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.bar {
+  width: 30px;
+  background-color: #3379d3;
+  border-radius: 5px;
+  transition: height 0.3s ease;
+  color: #4B2E2E;
+}
+
+.bar-label {
+  margin-top: 6px;
+  font-size: 12px;
+  text-align: center;
+  word-break: break-word;
+}
+.carde h2 {
+  text-align: center;
+  margin-bottom: 0px;
+  color: #4B2E2E;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.label{
+  color:#4B2E2E;
+}
