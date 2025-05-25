@@ -5,7 +5,7 @@
     "language": "Langue",
     "viewHistory": "Voir l'historique",
     "deleteHistory": "Supprimer l'historique",
-    "deleteAccount": "Supprimer le compte",
+    "deleteAccount": "Supprimer le compte", 
     "guest": "Invité",
     "viewHistoryAlert": "Fonctionnalité d'historique à venir !",
     "confirmDeleteHistory": "Êtes-vous sûr de vouloir supprimer l'historique ?",
@@ -13,7 +13,7 @@
     "confirmDeleteAccount": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
     "accountDeleted": "Compte supprimé avec succès.",
     "accountDeleteError": "Erreur lors de la suppression du compte. Veuillez vous reconnecter.",
-    
+    "historyTitle":"Historique",
     
       "settings": "Paramètres",
       "theme": "Thème",
@@ -74,7 +74,138 @@
               "send": "Envoyer",
               "error": "Erreur de connexion"
             
-          }
+          },
+          
+          
+            "users": "Utilisateurs",
+            "name": "Nom",
+            "email": "Email",
+            "actions": "Actions",
+            "delete": "Supprimer",
+            "viewHistory": "Voir historique",
+            "emotionDistribution": "Répartition des émotions",
+            "statsUsers": "Utilisateurs",
+            "statsSearch": "Recherche",
+            "statsGPT": "GPT",
+            "historyOf": "Historique de",
+            "noHistory": "Aucun historique disponible.",
+            "type": "Type",
+            "userInput": "🧠",
+            "botResponse": "🤖",
+            
+              "choix": {
+                "titre": "Choisissez votre mode de discussion",
+                "avecModel": "Discuter avec PsyBot",
+                "avecPsy": "Discuter avec un psychologue"
+              },
+              
+                "patients": "👥 Patients",
+                "selectPatient": "Sélectionnez un patient pour commencer",
+                "send": "Envoyer",
+                "yourMessage": "Votre message...",
+                "profileOf": "📝 Fiche de {{name}}",
+                "email": "Email",
+                "privateNotes": "Notes privées",
+                "messageDays": "Jours de messages",
+                "last": "(dernier)",
+                
+                  "chat_title": " Discussion avec votre psychologue",
+                  "input_placeholder": "Écrivez un message...",
+                  "send_button": "Envoyer",
+                  "publishAnonymously": "Publier anonymement",
+                  "pas Rendez-vous":"Pas Render-vous",
+                  "edit":"Modifier",
+                  "addAppointment":"ajouter un rendez-vous",
+                  "Rendez-vous":"Rendez-vous",
+                  "goToLiveChat":"Chat direct",
+                  "prend Rendez-vous":"Prendre Rendez-vous",
+                  "numberOfSessions":"Nombre de séances",
+                  "totalPrice":"Prix totale",
+                  "payNow":"payer maintenant",
+                  "Psychologue":"Psychologue",
+                  "chat.showSteps":"Voir étapes",
+                  "chat.publishAnonymous":"publier anonyme",
+                  "Ajoute":"Ajouter une publication",
+                  "Accueil":"Accueil",
+                  "Nouveau Poste":"Nouveau Poste",
+                  "Question":"Question",
+                    "Choc":"Choc",
+                    "Autre":"Autre",
+                    "Exprimez-vous librement ici...":"Exprimez-vous librement ici...",
+                    "Publier":"Publier",
+                    "Annuler":"Annuler",
+                    "Commentaire":"Commentaire:",
+                    "choosePsychologist":"Choisir psychologue",
+                    "select":"Choisir",
+                    "selectDate":"Choisir une date",
+                    "remainingSessions":"Les séances rester",
+                    "confirmAppointment":"Confirmer",
+                    "viewPosts":"Voir les postes",
+                    "choisiser":"Choisissez une clinique",
+                    "specialite":"Spécialité:",
+                    "fermer":"Fermer",
+                    "detail":"Détail de traitement",
+                    "detaill":"Détail téchnique",
+                    "psychologues":"Psychologues",
+                    "aucun":"Aucun psychologue disponible",
+                    "localisation":"Localisation",
+                    "psybot":"PsyBot sous licence",
+                    "des":"Une IA spécialisée pour cette clinique, prête à discuter avec vous.",
+                    "demar":"Démarer une séance avec PsyBot",
+                    "historique":"Historique",
+                    "aucunn":"Aucun rendez-vous disponible",
+                    "chatt":"Chat disponible uniquement pendant votre rendez-vous.",
+                     "chate": "Chat",
+                     
+  "patients": "Patients",
+  "noName": "Sans nom",
+  "loadingPsy": "Chargement des informations du psychologue...",
+  "clinicTitle": "Clinique",
+  "speciality": "Spécialité",
+  "cv": "CV",
+  "rdvWith": "Rendez‑vous avec {{name}}",
+  "date": "Date",
+  "time": "Heure",
+  "modify": "Modifier",
+  "delete": "Supprimer",
+  "noRdv": "Aucun rendez‑vous trouvé.",
+  "messagesWith": "Messages avec {{name}}",
+  "replyPlaceholder": "Répondre au patient...",
+  "send": "Envoyer",
+  "selectPatient": "Sélectionnez un patient pour voir ses messages.",
+  "profileTitlee":"Profil",
+  "description": {
+  "psybot": "Discutez avec un modèle intelligent pour un soutien immédiat.",
+  "psychologue": "Prenez contact avec un psychologue humain pour un suivi personnalisé.",
+  "clinique": "Trouvez une clinique spécialisée selon vos besoins."
+},
+"responseTypes":"Type de réponse",
+"emotions":"Emotions",
+"patients":"Patients",
+"nombrePatients":"Nombre de patients",
+"liste":"Liste des psychologues",
+"listes":"Listes des utilisateurs",
+"addpsycho":"Ajouter psychologue",
+"dashbou":"Tableau de bord",
+"paie":"Paiement",
+"deconn":"Déconnexion"
+
+
+
+                    
+
+
+
+
+                
+                
+              
+              
+            
+            
+          
+          
+          
           
         
         
