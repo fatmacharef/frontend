@@ -1,0 +1,337 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: #fff8f0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .forum-container {
+    display: flex;
+    height: 86vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Colonne gauche */
+  .forum-left {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffe0c4;
+    border-radius: 20px;
+    margin-right: 10px;
+    overflow-y: auto;
+  }
+  
+  .psy-card {
+    background: #ffd1aa;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(255, 170, 0, 0.2);
+  }
+  
+  .psy-card h4 {
+    margin: 0 0 5px 0;
+  }
+  
+  .psy-card button {
+    background: #ff8c42;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+  
+  .psy-card button:hover {
+    background: #ff702a;
+  }
+  
+  /* Colonne centre */
+  .forum-center {
+    flex: 2;
+    padding: 30px;
+    background-color: #fff4e6;
+    border-radius: 20px;
+    margin-right: 10px;
+    text-align: center;
+  }
+  
+  .forum-center h2 {
+    margin-top: 0;
+    color: #e26937;
+  }
+  
+  .psybot-section {
+    margin-top: 30px;
+    background: #ffe7d6;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(255, 150, 50, 0.2);
+  }
+  
+  .psybot-section button {
+    background: #ff8c42;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .psybot-section button:hover {
+    background: #ff702a;
+  }
+  
+  /* Colonne droite */
+  .forum-right {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffe0c4;
+    border-radius: 20px;
+    overflow-y: auto;
+  }
+  
+  .forum-right ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .forum-right li {
+    background: #ffd1aa;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(255, 170, 0, 0.15);
+  }
+  /* MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .modal-content input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .modal-content button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #d1a278;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin-left: 3px;
+  }
+  
+  .modal-content button:hover {
+    background-color: #cea684;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .close-btn:hover {
+    background: darkred;
+  }
+  
+  .chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Fond semi-transparent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .chat-box {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 500px; /* Limite la largeur */
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .chat-box h3 {
+    margin: 0;
+    text-align: center;
+    color: #333;
+  }
+  
+  .messages {
+    flex-grow: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .msg-sent {
+    background-color: #f7d4b6;
+    color: #1b4332;
+    align-self: flex-end;
+    padding: 8px 12px;
+    border-radius: 12px 12px 0 12px;
+    margin-bottom: 6px;
+    max-width: 75%;
+  }
+  
+  .msg-received {
+    background-color: #e9ecef;
+    color: #343a40;
+    align-self: flex-start;
+    padding: 8px 12px;
+    border-radius: 12px 12px 12px 0;
+    margin-bottom: 6px;
+    max-width: 75%;
+  }
+  
+  .chat-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .chat-input button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .chat-input button:hover {
+    background-color: #45a049;
+  }
+  
+  .chat-warning {
+    color: #5a462b;
+    text-align: center;
+  }
+  
+  .chat-box button {
+    align-self: center;
+    padding: 6px 12px;
+    border: none;
+    background-color: #e92e2e;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .chat-box button:hover {
+    background-color: #b92727;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-chat {
+    background: #fff;
+    width: 500px;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .modal-header {
+    background: #0077cc;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .modal-body {
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .modal-footer {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .modal-footer input {
+    flex: 1;
+    padding: 8px;
+  }
+  
+  .modal-footer button {
+    margin-left: 10px;
+  }
+  
+  
