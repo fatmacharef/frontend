@@ -6,7 +6,7 @@
   height: 100vh;
   width: 100vw;
   padding-top: 3rem;        /* un petit espace en haut */
-  background-image: url('img.svg');
+  background-image: url('../img.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
