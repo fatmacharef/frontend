@@ -1,0 +1,244 @@
+.community-feed {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background-image: url('img.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  width: 100vw;
+}
+ 
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.feed-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: #3e2c23;
+}
+
+.post-button {
+  margin: 0;
+  padding: 0.6rem 1.2rem;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #f1975e;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.posts-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Style de la carte */
+.post-card {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 12px;
+  background-color: #fdfdfd;
+  transition: transform 0.2s ease, box-shadow 0.2s;
+  width: 65vw;
+  height: auto; /* Au lieu de 70vh */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.post-card:hover {
+  transform: scale(1.015);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.post-card.selected {
+  height: auto;
+  background-color: #fffbe6;
+  font-size: 1.1rem;
+}
+
+.post-user {
+  font-weight: bold;
+  color: #3e8dec;
+  font-size: 15px;
+}
+
+.post-type {
+  font-weight: bold;
+  color: #be7a36;
+  font-size: 14px;
+}
+
+.post-question {
+  color: #333;
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+}
+
+.post-response {
+  display: block; /* Assurez-vous que l'élément n'est pas masqué */
+  visibility: visible; /* Vérifiez qu'il est visible */
+  opacity: 1; /* Vérifiez que l'élément n'est pas transparent */
+}
+
+
+.preview-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comments-section {
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
+  padding-top: 0.5rem;
+}
+
+.comments-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #3e2c23;
+  font-size: 1.2rem;
+}
+
+.comment {
+  margin: 0.2rem 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.comment strong {
+  color: #1976d2;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.comment-input.small-input {
+  font-size: 14px;
+  padding: 4px;
+  height: 28px;
+}
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+.modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  color: #3e2c23;
+  font-size: 1.2rem;
+}
+
+.modal.detailed-modal {
+  width: 900px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.close-btn.red {
+  color: #e53935;
+}
+
+.close-btn.red:hover {
+  color: #b71c1c;
+}
+
+
+.post-type-select,
+.post-input {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-buttons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background-color: #e0824b;
+  color: white;
+}
+.like-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.like-section span {
+  font-size: 1.5rem;
+}
