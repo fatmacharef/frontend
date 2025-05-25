@@ -12,7 +12,8 @@
     "historyDeleted": "History successfully deleted.",
     "confirmDeleteAccount": "Are you sure you want to delete your account? This action is irreversible.",
     "accountDeleted": "Account successfully deleted.",
-    "accountDeleteError": "Error deleting account. Please re-login.",
+    "accountDeleteError": "Error deleting account. Please re-login.", 
+    "historyTitle":"History",
     
     
       "settings": "Settings",
@@ -78,7 +79,144 @@
               "placeholder": "Ask a question...",
               "send": "Send",
               "error": "Connection error"
-            }
+            },
+            
+              "users": "Users",
+              "name": "Name",
+              "email": "Email",
+              "actions": "Actions",
+              "delete": "Delete",
+              "view_history": "View History",
+              "emotionDistribution": "Emotion Distribution",
+              "statsUsers": "Users",
+              "statsSearch": "Search",
+              "statsGPT": "GPT",
+              "historyOf": "History of",
+              "noHistory": "No history available.",
+              "type": "Type",
+              "close": "Close",
+              "userInput": "🧠",
+              "botResponse": "🤖",
+              
+                "choix": {
+                  "titre": "Choose your discussion mode",
+                  "avecModel": "Talk with PsyBot",
+                  "avecPsy": "Talk with a psychologist"
+                },
+                
+                  "patients": "👥 Patients",
+                  "selectPatient": "Select a patient to start",
+                  "send": "Send",
+                  "yourMessage": "Your message...",
+                  "profileOf": "📝 Profile of {{name}}",
+                  "email": "Email",
+                  "privateNotes": "Private Notes",
+                  "messageDays": "Message Days",
+                  "last": "(last)",
+                  
+                    "chat_title": " Chat with your psychologist",
+                    "input_placeholder": "Write a message...",
+                    "send_button": "Send",
+                    "publishAnonymously": "Publier anonymement",
+                    "pas Rendez-vous":"No appointment",
+                    "edit":"edit",
+                    "addAppointment":"addAppointment",
+                    "Rendez-vous":"Appointment",
+                    "goToLiveChat":"goToLiveChat",
+                    "prend Rendez-vous":"Appointment",
+                    "numberOfSessions":"NumberOfSessions",
+                    "totalPrice":"TotalPrice",
+                    "payNow":"payNow",
+                    "Psychologue":"Psychologist",
+                    "chat.showSteps":"Show Steps",
+                    "chat.publishAnonymous":"publish Anonymous",
+                    "Ajoute":"Add post",
+                    "Accueil":"Welcome",
+                    "Nouveau Poste":"New post",
+                    "Question":"Question",
+                    "Choc":"Choc",
+                    "Autre":"Other",
+                    "Exprimez-vous librement ici...":"Express yourself freely here...",
+                    "Publier":"Publish",
+                    "Annuler":"Cancel",
+                    "Commentaire":"Comment:",
+                    "choosePsychologist":"Choose Psychologist",
+                    "select":"Select",
+                    "selectDate":"Select Date",
+                    "remainingSessions":"Remaining Sessions",
+                    "confirmAppointment":"Confim",
+                    "viewPosts":"View Posts",
+                    "choisiser":"Choose a clinic",
+                    "specialite":"Speciality:",
+                    "fermer":"Close",
+                    "detail":"Processing details",
+                   "detaill":"Technic details",
+                   "psychologues":"psychologists",
+                   "aucun":"no psychologist available",
+                   "localisation":"Location",
+                   "psybot":"Licensed PsyBot",
+                   "des":"A specialized AI for this clinic, ready to chat with you.",
+                   "demar":"Start a session with PsyBot",
+                   "historique":"History",
+                   "aucunn":"no appointment available",
+                   "chatt":"Chat available only during your appointment.",
+                    "chate": "Chat",
+                    
+  "patients": "Patients",
+  "noName": "No name",
+  "loadingPsy": "Loading psychologist information...",
+  "clinicTitle": "Clinic",
+  "speciality": "Specialty",
+  "cv": "CV",
+  "rdvWith": "Appointments with {{name}}",
+  "date": "Date",
+  "time": "Time",
+  "modify": "Edit",
+  "delete": "Delete",
+  "noRdv": "No appointments found.",
+  "messagesWith": "Chat with {{name}}",
+  "replyPlaceholder": "Write a reply...",
+  "send": "Send",
+  "selectPatient": "Select a patient to view messages.",
+  "profileTitlee":"Profile",
+  "description": {
+  "psybot": "Chat with a smart model for immediate support.",
+  "psychologue": "Contact a human psychologist for personalized support.",
+  "clinique": "Find a specialized clinic according to your needs."
+},
+"responseTypes":"ResponseTypes",
+"emotions":"Emotions",
+
+  "patients": "Patients",
+  "nombrePatients": "Number of patients",
+  "liste": "List of psychologists",
+  "listes": "List of users",
+  "addpsycho": "Add psychologist",
+  "dashbou": "Dashboard",
+  "paie": "Payment",
+  "deconn": "Logout"
+
+
+
+
+
+
+
+                
+
+
+
+
+
+
+                  
+                  
+                
+                
+              
+              
+            
+            
           
           
         
