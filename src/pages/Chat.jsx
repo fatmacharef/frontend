@@ -16,7 +16,7 @@ function Chat() {
   const [selectedSteps, setSelectedSteps] = useState(null);
   const [published, setPublished] = useState(false);
 
-  // ✅ URL de ton Space HF
+  // ✅ URL correcte pour Gradio Space HF
   const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Chat() {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [input] }),
+        body: JSON.stringify({ data: [input] }), // ✅ Adapté pour Gradio
       });
 
       const result = await response.json();
@@ -60,7 +60,7 @@ function Chat() {
         return updated;
       });
 
-      // 🔥 Enregistrement Firebase
+      // 🔹 Enregistrement dans Firebase
       try {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -71,7 +71,7 @@ function Chat() {
           bot_response: botMessage.text,
           query_type: botMessage.responseType,
           emotion: botData.emotions || null,
-          steps: botData.steps || [],
+          steps: botMessage.steps,
           timestamp: new Date(),
         });
       } catch (firebaseError) {
@@ -84,10 +84,7 @@ function Chat() {
         const updated = [...prev];
         const tempIndex = updated.findIndex((msg) => msg.temp);
         if (tempIndex !== -1) {
-          updated[tempIndex] = {
-            text: `❌ ${t("chat.error")}`,
-            sender: "bot",
-          };
+          updated[tempIndex] = { text: `❌ ${t("chat.error")}`, sender: "bot" };
         }
         return updated;
       });
@@ -131,12 +128,13 @@ function Chat() {
                     className="icon-image"
                     style={{ width: "30px", height: "30px" }}
                   />
-
                   <div className="step-bubbles">
                     {steps.map((step, i) => (
                       <div
                         key={i}
-                        className={`step-bubble ${isStepActive(msg.responseType, step.key) ? "active" : ""}`}
+                        className={`step-bubble ${
+                          isStepActive(msg.responseType, step.key) ? "active" : ""
+                        }`}
                       ></div>
                     ))}
                   </div>
@@ -158,7 +156,7 @@ function Chat() {
                         try {
                           await addDoc(collection(db, "communityPosts"), {
                             user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-                            user_input: userMessage?.text || "",
+                            user_input: userMessage.text,
                             bot_response: msg.text,
                             timestamp: new Date(),
                           });
@@ -203,7 +201,10 @@ function Chat() {
                 { label: "Message fix", active: selectedSteps.responseType === "non acceptable" },
                 { label: "GPT", active: selectedSteps.responseType === "gpt" },
               ].map((step, i) => (
-                <div key={i} className={`step-item ${step.active ? "step-done" : "step-pending"}`}>
+                <div
+                  key={i}
+                  className={`step-item ${step.active ? "step-done" : "step-pending"}`}
+                >
                   {step.active ? "✔" : "•"} {step.label}
                 </div>
               ))}
@@ -229,7 +230,6 @@ function Chat() {
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           disabled={loading}
         />
-
         <button onClick={sendMessage} disabled={loading} className="envoyer-button">
           <SendHorizonal size={20} title={t("send_button")} />
         </button>
