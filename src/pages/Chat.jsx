@@ -17,7 +17,7 @@ function Chat() {
   const [published, setPublished] = useState(false);
 
   // ✅ Remplace par l'URL de ton Space HF
-const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
+const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -244,3 +244,4 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
 
 export default Chat;
 )
+
