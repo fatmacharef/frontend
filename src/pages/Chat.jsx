@@ -8,7 +8,7 @@ function Chat() {
   const chatEndRef = useRef(null);
 
   // 👉 Met l'URL de ton Hugging Face Space ici
-  const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
+  const API_URL = "https://fatmata-psybot-backend.hf.space/run/predict";
 
  const sendMessage = async () => {
   if (input.trim() === "" || loading) return;
@@ -122,4 +122,5 @@ function Chat() {
 }
 
 export default Chat;
+
 
