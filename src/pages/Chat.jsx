@@ -7,8 +7,8 @@ function Chat() {
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-  // Met ton URL Hugging Face Space ici
-  const API_URL = "https://fatmata-psybot-backende.hf.space/chat/";
+  // ✅ URL de ton Space Hugging Face
+  const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
 
   const sendMessage = async () => {
     if (input.trim() === "" || loading) return;
@@ -21,7 +21,8 @@ function Chat() {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: input })
+        // ✅ Gradio attend un tableau dans "data"
+        body: JSON.stringify({ data: [input] })
       });
 
       if (!response.ok) {
@@ -31,7 +32,8 @@ function Chat() {
       const data = await response.json();
       console.log("Réponse backend :", data);
 
-      const botText = data.response || "⚠️ Pas de réponse du bot";
+      // ✅ Gradio renvoie la réponse dans data[0]
+      const botText = data.data?.[0] || "⚠️ Pas de réponse du bot";
 
       setMessages(prev => [...prev, { sender: "bot", text: botText }]);
 
