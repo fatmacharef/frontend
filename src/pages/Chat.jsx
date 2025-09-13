@@ -16,7 +16,7 @@ function Chat() {
   const [selectedSteps, setSelectedSteps] = useState(null);
   const [published, setPublished] = useState(false);
 
-  const API_URL = "https://fatmata-psybot-backende.hf.space/chat/";
+const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -258,3 +258,4 @@ function Chat() {
 }
 
 export default Chat;
+
