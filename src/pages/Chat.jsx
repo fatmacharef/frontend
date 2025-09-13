@@ -1,261 +1,118 @@
-import { useState, useRef, useEffect } from "react";
-import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import "./Chat.css";
-import { useTranslation } from "react-i18next";
-import { SendHorizonal } from "lucide-react";
+from fastapi import FastAPI
+from pydantic import BaseModel
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSequenceClassification
+import torch
+import torch.nn.functional as F
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from mtranslate import translate
+from langdetect import detect
+from duckduckgo_search import DDGS
+import re
 
-function Chat() {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [anonymous, setAnonymous] = useState(false);
-  const chatEndRef = useRef(null);
-  const { t } = useTranslation();
-  const [selectedSteps, setSelectedSteps] = useState(null);
-  const [published, setPublished] = useState(false);
+# === Nettoyage texte ===
+def clean_response(text):
+    text = re.sub(r'<[^>]+>', '', text)
+    text = re.split(r'</(Bot|name|opinion|User|[a-zA-Z]*)>', text)[0]
+    text = re.sub(r'^\s*[,.:;-]*', '', text)
+    text = re.sub(r'^\s*(Psyche|Therapist|Bot|Assistant|AI):?\s*', '', text)
+    text = re.sub(r'\([^)]*\)', '', text)
+    text = re.sub(r'\[.*?\]', '', text)
+    text = re.sub(r'[:;=8][-~]?[)D(\\/*|]', '', text)
+    text = re.sub(r'\s{2,}', ' ', text).strip()
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+    return " ".join(sentences[:2]).strip()
 
-const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
+# === Charger modèles ===
+MODEL_PATH = "fatmata/gpt-psybot"
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, use_fast=False)
+model = AutoModelForCausalLM.from_pretrained(MODEL_PATH)
 
-  useEffect(() => {
-    const mode = localStorage.getItem("theme") || "light";
-    document.body.classList.remove("light-mode", "dark-mode");
-    document.body.classList.add(`${mode}-mode`);
-  }, []);
+BERT_MODEL_NAME = "fatmata/bert_model"
+bert_tokenizer = AutoTokenizer.from_pretrained(BERT_MODEL_NAME)
+bert_model = AutoModelForSequenceClassification.from_pretrained(BERT_MODEL_NAME)
 
-  const sendMessage = async () => {
-    if (input.trim() === "" || loading) return;
+CLASSIFIER_PATH = "fatmata/mini_bert"
+model_c = AutoModelForSequenceClassification.from_pretrained(CLASSIFIER_PATH)
+tokenizer_c = AutoTokenizer.from_pretrained(CLASSIFIER_PATH)
 
-    setLoading(true);
-    const userMessage = { text: input, sender: "user" };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+# === Analyse émotion ===
+analyzer = SentimentIntensityAnalyzer()
+GOEMOTIONS_LABELS = ["admiration","anger","approval","autre","curiosity",
+                     "disapproval","gratitude","joy","love","neutral","sadness"]
+UNACCEPTABLE_EMOTIONS = {"anger"}
 
-    const loadingMsg = { text: "...", sender: "bot", temp: true };
-    setMessages((prev) => [...prev, loadingMsg]);
+def detect_language(text):
+    try:
+        detected_lang = detect(text)
+        return detected_lang if detected_lang in ["fr", "en", "ar"] else "en"
+    except:
+        return "en"
 
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_input: input }),
-      });
+def search_duckduckgo(query, max_results=3):
+    try:
+        search_results = list(DDGS().text(query, max_results=max_results))
+        return [result["body"] for result in search_results if "body" in result] or ["Pas trouvé."]
+    except Exception as e:
+        return [f"Erreur recherche : {str(e)}"]
 
-      const data = await response.json();
-      console.log("Réponse backend :", data); // 👀 Debug
+def generate_response(user_input):
+    prompt = f"User: {user_input}\nBot:"
+    inputs = tokenizer(prompt, return_tensors="pt")
+    output = model.generate(
+        input_ids=inputs["input_ids"],
+        max_new_tokens=150,
+        pad_token_id=tokenizer.eos_token_id,
+        eos_token_id=tokenizer.eos_token_id,
+        do_sample=True,
+        temperature=0.7,
+        top_k=50,
+        top_p=0.9,
+        repetition_penalty=1.2
+    )
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return clean_response(generated_text.split("Bot:")[-1].strip())
 
-      const botText = Array.isArray(data.response)
-        ? data.response[0]
-        : data.response || "❌ Réponse vide";
+def classify_emotion(text):
+    sentiment_scores = analyzer.polarity_scores(text)
+    compound = sentiment_scores['compound'] * 100
+    inputs = bert_tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=256)
+    with torch.no_grad():
+        logits = bert_model(**inputs).logits
+    probs = F.softmax(logits, dim=-1).squeeze().cpu().numpy()
+    top_emotion_index = probs.argmax()
+    top_emotion = GOEMOTIONS_LABELS[top_emotion_index]
+    return compound, top_emotion in UNACCEPTABLE_EMOTIONS, top_emotion
 
-      const botMessage = {
-        text: botText,
-        sender: "bot",
-        responseType: data.response_type,
-        steps: data.steps || [],
-      };
+def predict(text):
+    inputs = tokenizer_c(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
+    with torch.no_grad():
+        outputs = model_c(**inputs)
+    logits = outputs.logits
+    return "recherche" if torch.argmax(logits, dim=-1).item() == 1 else "GPT"
 
-      setMessages((prev) => {
-        const updated = [...prev];
-        const tempIndex = updated.findIndex((msg) => msg.temp);
-        if (tempIndex !== -1) updated[tempIndex] = botMessage;
-        return updated;
-      });
+def classify_and_respond(text):
+    original_lang = detect_language(text)
+    text_en = translate(text, "en")
 
-      try {
-        const auth = getAuth();
-        const user = auth.currentUser;
+    category = predict(text_en)
+    if category == "recherche":
+        response = search_duckduckgo(text_en)
+        return "\n".join([translate(r, original_lang) for r in response])
 
-        await addDoc(collection(db, "chatHistory"), {
-          user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-          user_input: input,
-          bot_response: botText,
-          query_type: data.response_type,
-          emotion: data.emotions || null,
-          steps: data.steps || [],
-          timestamp: new Date(),
-        });
-      } catch (firebaseError) {
-        console.error("Erreur Firebase :", firebaseError);
-      }
-    } catch (error) {
-      console.error("Erreur fetch backend :", error);
-      setMessages((prev) => {
-        const updated = [...prev];
-        const tempIndex = updated.findIndex((msg) => msg.temp);
-        if (tempIndex !== -1) {
-          updated[tempIndex] = {
-            text: `❌ ${t("chat.error")}`,
-            sender: "bot",
-          };
-        }
-        return updated;
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+    compound, is_unacceptable, emotion = classify_emotion(text_en)
+    if is_unacceptable and abs(compound) > 50:
+        return translate("Je ressens beaucoup de tension dans votre message.", original_lang)
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    gpt_response = generate_response(text_en)
+    return translate(gpt_response, original_lang)
 
-  const steps = [
-    { label: "Intention", key: 1 },
-    { label: "Recherche", key: 2 },
-    { label: "Émotion", key: 3 },
-    { label: "Message fix", key: 4 },
-    { label: "GPT", key: 5 },
-  ];
+# === API FastAPI ===
+app = FastAPI()
 
-  const isStepActive = (responseType, stepKey) => {
-    if (responseType === "recherche") return stepKey === 1 || stepKey === 2;
-    if (responseType === "non acceptable") return stepKey >= 1 && stepKey <= 4;
-    if (responseType === "gpt")
-      return stepKey === 1 || stepKey === 3 || stepKey === 5;
-    return false;
-  };
+class ChatRequest(BaseModel):
+    text: str
 
-  return (
-    <div className="chat-container">
-      {messages.length === 0 && <h1 className="chat-title">{t("chat.title")}</h1>}
-
-      <div className="chatt-box">
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.sender}`}>
-            <>
-              {msg.sender === "bot" ? (
-                <>
-                  <div className="bot-message-container">
-                    <img
-                      src={msg.responseType === "gpt" ? "/gpt.png" : "/recherche.png"}
-                      alt="icon"
-                      className="icon-image"
-                      style={{ width: "30px", height: "30px" }}
-                    />
-
-                    <div className="step-bubbles">
-                      {steps.map((step, i) => (
-                        <div
-                          key={i}
-                          className={`step-bubble ${
-                            isStepActive(msg.responseType, step.key) ? "active" : ""
-                          }`}
-                        ></div>
-                      ))}
-                    </div>
-
-                    {msg.steps?.length > 0 && (
-                      <button
-                        className="steps-toggle"
-                        onClick={() => setSelectedSteps(msg)}
-                      >
-                        {t("chat.showSteps")}
-                      </button>
-                    )}
-
-                    {!published && msg.responseType === "gpt" && (
-                      <button
-                        className="publish-button"
-                        onClick={async () => {
-                          const auth = getAuth();
-                          const user = auth.currentUser;
-                          const userMessage = messages.findLast(
-                            (m) => m.sender === "user"
-                          );
-
-                          try {
-                            await addDoc(collection(db, "communityPosts"), {
-                              user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-                              user_input: userMessage?.text || "",
-                              bot_response: msg.text,
-                              timestamp: new Date(),
-                            });
-                            alert("✅ Publié dans le fil communautaire !");
-                            setPublished(true);
-                          } catch (err) {
-                            console.error("Erreur publication :", err);
-                            alert("❌ Erreur lors de la publication");
-                          }
-                        }}
-                      >
-                        {t("chat.publishAnonymous")}
-                      </button>
-                    )}
-                  </div>
-
-                  <div className="bot-response-text">{msg.text}</div>
-                </>
-              ) : (
-                <span>{msg.text}</span>
-              )}
-            </>
-          </div>
-        ))}
-
-        <div ref={chatEndRef} />
-
-        {selectedSteps && (
-          <div className="steps-modal">
-            <div className="steps-modal-header">
-              <h3>{t("detail")}</h3>
-              <button onClick={() => setSelectedSteps(null)}>✖</button>
-            </div>
-            <div className="steps-modal-body">
-              {[
-                { label: "Intention", active: true },
-                { label: "Recherche", active: selectedSteps.responseType === "recherche" },
-                {
-                  label: "Émotion",
-                  active:
-                    selectedSteps.responseType === "non acceptable" ||
-                    selectedSteps.responseType === "gpt",
-                },
-                { label: "Message fix", active: selectedSteps.responseType === "non acceptable" },
-                { label: "GPT", active: selectedSteps.responseType === "gpt" },
-              ].map((step, i) => (
-                <div
-                  key={i}
-                  className={`step-item ${step.active ? "step-done" : "step-pending"}`}
-                >
-                  {step.active ? "✔" : "•"} {step.label}
-                </div>
-              ))}
-              <div className="steps-raw">
-                <h4>{t("detaill")}</h4>
-                <ul>
-                  {selectedSteps.steps?.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div
-        className={`inpput-container ${
-          messages.length > 0 ? "bottom" : "center"
-        }`}
-      >
-        <input
-          type="text"
-          placeholder={t("chat.placeholder")}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          disabled={loading}
-        />
-
-        <button onClick={sendMessage} disabled={loading} className="envoyer-button">
-          <SendHorizonal size={20} title={t("send_button")} />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default Chat;
-
+@app.post("/chat/")
+def chat(req: ChatRequest):
+    response = classify_and_respond(req.text)
+    return {"response": response}
