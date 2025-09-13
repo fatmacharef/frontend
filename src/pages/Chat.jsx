@@ -1,89 +1,88 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState, useRef, useEffect } from "react";
+import "./Chat.css";
 
-export default function Chat() {
-  const [message, setMessage] = useState("");
-  const [chatHistory, setChatHistory] = useState([]);
+function Chat() {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const chatEndRef = useRef(null);
 
-  const handleSend = async () => {
-    if (!message.trim()) return;
+  // Met ton URL Hugging Face Space ici
+  const API_URL = "https://fatmata-psybot-backende.hf.space/chat/";
+
+  const sendMessage = async () => {
+    if (input.trim() === "" || loading) return;
+
+    // Ajouter le message utilisateur dans l'affichage
+    setMessages(prev => [...prev, { sender: "user", text: input }]);
     setLoading(true);
 
     try {
-      // 🚀 Envoie vers ton backend Hugging Face
-      const res = await axios.post(
-        "https://fatmata-psybot-backende.hf.space/chat/",
-        { text: message }
-      );
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: input })
+      });
 
-      const botResponse = res.data.response;
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ${response.status}`);
+      }
 
-      setChatHistory([
-        ...chatHistory,
-        { role: "user", text: message },
-        { role: "bot", text: botResponse },
-      ]);
-      setMessage("");
-    } catch (err) {
-      console.error("Erreur API:", err);
-      setChatHistory([
-        ...chatHistory,
-        { role: "user", text: message },
-        { role: "bot", text: "⚠️ Erreur : impossible de contacter le serveur." },
-      ]);
+      const data = await response.json();
+      console.log("Réponse backend :", data);
+
+      const botText = data.response || "⚠️ Pas de réponse du bot";
+
+      setMessages(prev => [...prev, { sender: "bot", text: botText }]);
+
+    } catch (error) {
+      console.error("Erreur fetch backend :", error);
+      setMessages(prev => [...prev, { sender: "bot", text: "⚠️ Erreur de connexion au backend" }]);
     } finally {
+      setInput("");
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !loading) {
+      sendMessage();
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">💬 PsyBot Chat</h1>
-
-      <div className="w-full max-w-lg bg-white shadow-md rounded-lg p-4">
-        <div className="h-80 overflow-y-auto border p-2 mb-4 rounded">
-          {chatHistory.map((msg, i) => (
-            <div
-              key={i}
-              className={`mb-2 ${
-                msg.role === "user" ? "text-right" : "text-left"
-              }`}
-            >
-              <span
-                className={`inline-block px-3 py-2 rounded-lg ${
-                  msg.role === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-black"
-                }`}
-              >
-                {msg.text}
-              </span>
-            </div>
-          ))}
-          {loading && (
-            <div className="text-gray-500 italic">Le bot écrit...</div>
-          )}
-        </div>
-
-        <div className="flex">
-          <input
-            type="text"
-            className="flex-1 border p-2 rounded-l"
-            placeholder="Écris ton message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSend()}
-          />
-          <button
-            onClick={handleSend}
-            className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
-            disabled={loading}
+    <div className="chat-container">
+      <div className="messages-box">
+        {messages.map((msg, i) => (
+          <div
+            key={i}
+            className={`message ${msg.sender === "user" ? "user-message" : "bot-message"}`}
           >
-            Envoyer
-          </button>
-        </div>
+            <span>{msg.text}</span>
+          </div>
+        ))}
+        <div ref={chatEndRef} />
+      </div>
+
+      <div className="input-box">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Écris ton message..."
+          disabled={loading}
+        />
+        <button onClick={sendMessage} disabled={loading}>
+          {loading ? "…" : "Envoyer"}
+        </button>
       </div>
     </div>
   );
 }
+
+export default Chat;
