@@ -53,12 +53,20 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
         steps: botData.steps || [],
       };
 
-      setMessages((prev) => {
-        const updated = [...prev];
-        const tempIndex = updated.findIndex((msg) => msg.temp);
-        if (tempIndex !== -1) updated[tempIndex] = botMessage;
-        return updated;
-      });
+     setMessages((prev) => {
+  const updated = [...prev];
+  const tempIndex = updated.findIndex((msg) => msg.temp);
+  if (tempIndex !== -1) {
+    updated[tempIndex] = {
+      text: botData?.response || `❌ ${t("chat.error")}`,
+      sender: "bot",
+      responseType: botData?.response_type || "unknown",
+      steps: botData?.steps || [],
+    };
+  }
+  return updated;
+});
+
 
       // Enregistrement Firebase
       try {
@@ -244,4 +252,5 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
 
 export default Chat;
 )
+
 
