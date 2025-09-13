@@ -10,42 +10,73 @@ function Chat() {
   // 👉 Met l'URL de ton Hugging Face Space ici
   const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
 
-  const sendMessage = async () => {
-    if (input.trim() === "" || loading) return;
+ const sendMessage = async () => {
+  if (input.trim() === "" || loading) return;
 
-    // Ajouter le message utilisateur dans l'affichage
-    setMessages((prev) => [...prev, { sender: "user", text: input }]);
-    setLoading(true);
+  setLoading(true);
+  const userMessage = { text: input, sender: "user" };
+  setMessages((prev) => [...prev, userMessage]);
+  setInput("");
 
+  const loadingMsg = { text: "...", sender: "bot", temp: true };
+  setMessages((prev) => [...prev, loadingMsg]);
+
+  try {
+    const response = await fetch("https://fatmata-psybot-backende.hf.space/run/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: [input] }),   // ✅ format attendu par Gradio
+    });
+
+    const result = await response.json();
+    const data = result.data[0]; // ✅ Gradio renvoie dans data[0]
+
+    const botMessage = {
+      text: data.response,
+      sender: "bot",
+      responseType: data.response_type,
+      steps: data.steps || []
+    };
+
+    setMessages((prev) => {
+      const updated = [...prev];
+      const tempIndex = updated.findIndex((msg) => msg.temp);
+      if (tempIndex !== -1) updated[tempIndex] = botMessage;
+      return updated;
+    });
+
+    // ✅ Sauvegarde Firebase
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [input] }) // format attendu par Gradio
+      const auth = getAuth();
+      const user = auth.currentUser;
+      await addDoc(collection(db, "chatHistory"), {
+        user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
+        user_input: input,
+        bot_response: data.response,
+        query_type: data.response_type,
+        emotion: data.emotions || null,
+        steps: data.steps || [],
+        timestamp: new Date(),
       });
-
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Réponse backend :", data);
-
-      // Récupérer la réponse du modèle
-      const botText = data?.data?.[0] || "⚠️ Pas de réponse du bot";
-
-      setMessages((prev) => [...prev, { sender: "bot", text: botText }]);
-    } catch (error) {
-      console.error("Erreur fetch backend :", error);
-      setMessages((prev) => [
-        ...prev,
-        { sender: "bot", text: "⚠️ Erreur de connexion au backend" }
-      ]);
-    } finally {
-      setInput("");
-      setLoading(false);
+    } catch (firebaseError) {
+      console.error("Erreur Firebase :", firebaseError);
     }
-  };
+
+  } catch (error) {
+    console.error("Erreur fetch backend :", error);
+    setMessages((prev) => {
+      const updated = [...prev];
+      const tempIndex = updated.findIndex((msg) => msg.temp);
+      if (tempIndex !== -1) {
+        updated[tempIndex] = { text: `❌ ${t("chat.error")}`, sender: "bot" };
+      }
+      return updated;
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -91,3 +122,4 @@ function Chat() {
 }
 
 export default Chat;
+
