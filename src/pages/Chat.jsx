@@ -18,7 +18,7 @@ function Chat() {
   const [published, setPublished] = useState(false);
 
 
-  const API_URL = "https://fatmata-psybot-backende.hf.space";
+const API_URL = "https://fatmata-psybot-backende.hf.space/chat/";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -263,4 +263,5 @@ const isStepActive = (responseType, stepKey) => {
 }
 
 export default Chat;
+
 
