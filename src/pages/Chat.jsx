@@ -16,8 +16,8 @@ function Chat() {
   const [selectedSteps, setSelectedSteps] = useState(null);
   const [published, setPublished] = useState(false);
 
-  // ✅ Remplace par l'URL de ton Space HF
-const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
+  // ✅ URL de ton Space HF
+  const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -40,35 +40,27 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [input] }), // ✅ Adapté pour Gradio
+        body: JSON.stringify({ data: [input] }),
       });
 
       const result = await response.json();
-      const botData = result.data[0]; // Gradio renvoie data: [{response,...}]
+      const botData = result.data?.[0] || {};
 
       const botMessage = {
-        text: botData.response,
+        text: botData.response || "Erreur : pas de réponse",
         sender: "bot",
-        responseType: botData.response_type,
+        responseType: botData.response_type || "unknown",
         steps: botData.steps || [],
       };
 
-     setMessages((prev) => {
-  const updated = [...prev];
-  const tempIndex = updated.findIndex((msg) => msg.temp);
-  if (tempIndex !== -1) {
-    updated[tempIndex] = {
-      text: botData?.response || `❌ ${t("chat.error")}`,
-      sender: "bot",
-      responseType: botData?.response_type || "unknown",
-      steps: botData?.steps || [],
-    };
-  }
-  return updated;
-});
+      setMessages((prev) => {
+        const updated = [...prev];
+        const tempIndex = updated.findIndex((msg) => msg.temp);
+        if (tempIndex !== -1) updated[tempIndex] = botMessage;
+        return updated;
+      });
 
-
-      // Enregistrement Firebase
+      // 🔥 Enregistrement Firebase
       try {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -76,8 +68,8 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
         await addDoc(collection(db, "chatHistory"), {
           user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
           user_input: input,
-          bot_response: botData.response,
-          query_type: botData.response_type,
+          bot_response: botMessage.text,
+          query_type: botMessage.responseType,
           emotion: botData.emotions || null,
           steps: botData.steps || [],
           timestamp: new Date(),
@@ -85,6 +77,7 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
       } catch (firebaseError) {
         console.error("Erreur Firebase :", firebaseError);
       }
+
     } catch (error) {
       console.error("Erreur fetch backend :", error);
       setMessages((prev) => {
@@ -143,9 +136,7 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
                     {steps.map((step, i) => (
                       <div
                         key={i}
-                        className={`step-bubble ${
-                          isStepActive(msg.responseType, step.key) ? "active" : ""
-                        }`}
+                        className={`step-bubble ${isStepActive(msg.responseType, step.key) ? "active" : ""}`}
                       ></div>
                     ))}
                   </div>
@@ -167,7 +158,7 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
                         try {
                           await addDoc(collection(db, "communityPosts"), {
                             user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-                            user_input: userMessage.text,
+                            user_input: userMessage?.text || "",
                             bot_response: msg.text,
                             timestamp: new Date(),
                           });
@@ -212,10 +203,7 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
                 { label: "Message fix", active: selectedSteps.responseType === "non acceptable" },
                 { label: "GPT", active: selectedSteps.responseType === "gpt" },
               ].map((step, i) => (
-                <div
-                  key={i}
-                  className={`step-item ${step.active ? "step-done" : "step-pending"}`}
-                >
+                <div key={i} className={`step-item ${step.active ? "step-done" : "step-pending"}`}>
                   {step.active ? "✔" : "•"} {step.label}
                 </div>
               ))}
@@ -251,6 +239,3 @@ const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
 }
 
 export default Chat;
-)
-
-
