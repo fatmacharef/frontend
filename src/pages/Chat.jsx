@@ -37,11 +37,11 @@ function Chat() {
     setMessages((prev) => [...prev, loadingMsg]);
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [input] }), // ✅ format attendu par Gradio
-      });
+     const response = await fetch("https://fatmata-psybot-backende.hf.space/api/predict/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ data: [userMessage] }),
+});
 
       const result = await response.json();
       console.log("Réponse brute backend:", result);
@@ -168,3 +168,4 @@ function Chat() {
 }
 
 export default Chat;
+
