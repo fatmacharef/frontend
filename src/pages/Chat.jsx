@@ -16,8 +16,8 @@ function Chat() {
   const [selectedSteps, setSelectedSteps] = useState(null);
   const [published, setPublished] = useState(false);
 
-  // ✅ URL correcte pour Hugging Face Space
-  const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
+  // ✅ Nouvelle URL backend Hugging Face
+  const API_URL = "https://fatmata-end.hf.space/predict";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -37,22 +37,19 @@ function Chat() {
     setMessages((prev) => [...prev, loadingMsg]);
 
     try {
-      // ✅ On envoie uniquement le texte (pas tout l’objet userMessage)
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [userMessage.text] }),
+        // ✅ Backend Hugging Face attend { "text": "..." }
+        body: JSON.stringify({ text: input }),
       });
 
-      const result = await response.json();
-      console.log("Réponse brute backend:", result);
-
-      // ✅ Hugging Face Gradio renvoie { data: ["texte"] }
+      const data = await response.json();
       const botMessage = {
-        text: result.data?.[0] || "Erreur : pas de réponse",
+        text: data.response,
         sender: "bot",
-        responseType: "gpt", // tu peux ajuster si besoin
-        steps: [],
+        responseType: data.response_type,
+        steps: data.steps || []
       };
 
       setMessages((prev) => {
@@ -62,17 +59,17 @@ function Chat() {
         return updated;
       });
 
-      // 🔹 Enregistrement dans Firebase
       try {
         const auth = getAuth();
         const user = auth.currentUser;
 
         await addDoc(collection(db, "chatHistory"), {
           user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-          user_input: userMessage.text, // ✅ on stocke juste le texte
-          bot_response: botMessage.text,
-          query_type: botMessage.responseType,
-          steps: botMessage.steps,
+          user_input: input,
+          bot_response: data.response,
+          query_type: data.response_type,
+          emotion: data.emotions || null,
+          steps: data.steps || [],
           timestamp: new Date(),
         });
       } catch (firebaseError) {
@@ -85,7 +82,10 @@ function Chat() {
         const updated = [...prev];
         const tempIndex = updated.findIndex((msg) => msg.temp);
         if (tempIndex !== -1) {
-          updated[tempIndex] = { text: `❌ ${t("chat.error")}`, sender: "bot" };
+          updated[tempIndex] = {
+            text: `❌ ${t("chat.error")}`,
+            sender: "bot",
+          };
         }
         return updated;
       });
@@ -99,7 +99,7 @@ function Chat() {
   }, [messages]);
 
   const steps = [
-    { label: "Intention", key: 1 },
+    { label: "Intentient", key: 1 },
     { label: "Recherche", key: 2 },
     { label: "Émotion", key: 3 },
     { label: "Message fix", key: 4 },
@@ -120,35 +120,107 @@ function Chat() {
       <div className="chatt-box">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
-            {msg.sender === "bot" ? (
-              <>
-                <div className="bot-message-container">
-                  <img
-                    src={msg.responseType === "gpt" ? "/gpt.png" : "/recherche.png"}
-                    alt="icon"
-                    className="icon-image"
-                    style={{ width: "30px", height: "30px" }}
-                  />
-                  <div className="step-bubbles">
-                    {steps.map((step, i) => (
-                      <div
-                        key={i}
-                        className={`step-bubble ${
-                          isStepActive(msg.responseType, step.key) ? "active" : ""
-                        }`}
-                      ></div>
-                    ))}
+            <>
+              {msg.sender === "bot" ? (
+                <>
+                  <div className="bot-message-container">
+                    <img
+                      src={msg.responseType === "gpt" ? "/gpt.png" : "/recherche.png"}
+                      alt="icon"
+                      className="icon-image"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+
+                    <div className="step-bubbles">
+                      {steps.map((step, i) => (
+                        <div
+                          key={i}
+                          className={`step-bubble ${isStepActive(msg.responseType, step.key) ? "active" : ""}`}
+                        ></div>
+                      ))}
+                    </div>
+
+                    {msg.steps?.length > 0 && (
+                      <button
+                        className="steps-toggle"
+                        onClick={() => setSelectedSteps(msg)}
+                      >
+                        {t("chat.showSteps")}
+                      </button>
+                    )}
+
+                    {!published &&
+                      msg.responseType === "gpt" && (
+                        <button
+                          className="publish-button"
+                          onClick={async () => {
+                            const auth = getAuth();
+                            const user = auth.currentUser;
+                            const userMessage = messages.findLast((m) => m.sender === "user");
+
+                            try {
+                              await addDoc(collection(db, "communityPosts"), {
+                                user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
+                                user_input: userMessage.text,
+                                bot_response: msg.text,
+                                timestamp: new Date(),
+                              });
+                              alert("✅ Publié dans le fil communautaire !");
+                              setPublished(true);
+                            } catch (err) {
+                              console.error("Erreur publication :", err);
+                              alert("❌ Erreur lors de la publication");
+                            }
+                          }}
+                        >
+                          {t("chat.publishAnonymous")}
+                        </button>
+                      )}
                   </div>
-                </div>
-                <div className="bot-response-text">{msg.text}</div>
-              </>
-            ) : (
-              <span>{msg.text}</span>
-            )}
+
+                  <div className="bot-response-text">{msg.text}</div>
+                </>
+              ) : (
+                <span>{msg.text}</span>
+              )}
+            </>
           </div>
         ))}
 
         <div ref={chatEndRef} />
+
+        {selectedSteps && (
+          <div className="steps-modal">
+            <div className="steps-modal-header">
+              <h3>{t("detail")}</h3>
+              <button onClick={() => setSelectedSteps(null)}>✖</button>
+            </div>
+            <div className="steps-modal-body">
+              {[
+                { label: "Intention", active: true },
+                { label: "Recherche", active: selectedSteps.responseType === "recherche" },
+                { label: "Émotion", active: selectedSteps.responseType === "non acceptable" || selectedSteps.responseType === "gpt" },
+                { label: "Message fix", active: selectedSteps.responseType === "non acceptable" },
+                { label: "GPT", active: selectedSteps.responseType === "gpt" },
+              ].map((step, i) => (
+                <div
+                  key={i}
+                  className={`step-item ${step.active ? "step-done" : "step-pending"}`}
+                >
+                  {step.active ? "✔" : "•"} {step.label}
+                </div>
+              ))}
+              <div className="steps-raw">
+                <h4>{t("detaill")}</h4>
+                <ul>
+                  {selectedSteps.steps?.map((s, i) => (
+                    <li key={i}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className={`inpput-container ${messages.length > 0 ? "bottom" : "center"}`}>
