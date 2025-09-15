@@ -17,7 +17,7 @@ function Chat() {
   const [published, setPublished] = useState(false);
 
   // ✅ URL correcte pour Hugging Face Space
-  const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
+  const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -37,11 +37,12 @@ function Chat() {
     setMessages((prev) => [...prev, loadingMsg]);
 
     try {
-     const response = await fetch("https://fatmata-psybot-backende.hf.space/api/predict/", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ data: [userMessage] }),
-});
+      // ✅ On envoie uniquement le texte (pas tout l’objet userMessage)
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: [userMessage.text] }),
+      });
 
       const result = await response.json();
       console.log("Réponse brute backend:", result);
@@ -68,7 +69,7 @@ function Chat() {
 
         await addDoc(collection(db, "chatHistory"), {
           user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-          user_input: input,
+          user_input: userMessage.text, // ✅ on stocke juste le texte
           bot_response: botMessage.text,
           query_type: botMessage.responseType,
           steps: botMessage.steps,
@@ -168,4 +169,3 @@ function Chat() {
 }
 
 export default Chat;
-
