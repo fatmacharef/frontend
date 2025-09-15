@@ -37,56 +37,71 @@ function Chat() {
     setMessages((prev) => [...prev, loadingMsg]);
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // ✅ Backend Hugging Face attend { "text": "..." }
-        body: JSON.stringify({ text: input }),
-      });
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: input }),
+  });
 
-      const data = await response.json();
-      const botMessage = {
-        text: data.response,
+  // ⚠️ Vérifier si c’est du JSON ou du HTML
+  const textResponse = await response.text();
+  let data;
+
+  try {
+    data = JSON.parse(textResponse);
+  } catch {
+    throw new Error("Réponse invalide du backend : " + textResponse.slice(0, 100));
+  }
+
+  const botMessage = {
+    text: data.response || "❌ Erreur : aucune réponse générée.",
+    sender: "bot",
+    responseType: data.response_type || "gpt",
+    steps: data.steps || [],
+  };
+
+  setMessages((prev) => {
+    const updated = [...prev];
+    const tempIndex = updated.findIndex((msg) => msg.temp);
+    if (tempIndex !== -1) updated[tempIndex] = botMessage;
+    return updated;
+  });
+
+  // Sauvegarde Firebase
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    await addDoc(collection(db, "chatHistory"), {
+      user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
+      user_input: input,
+      bot_response: data.response,
+      query_type: data.response_type,
+      emotion: data.emotions || null,
+      steps: data.steps || [],
+      timestamp: new Date(),
+    });
+  } catch (firebaseError) {
+    console.error("Erreur Firebase :", firebaseError);
+  }
+
+} catch (error) {
+  console.error("Erreur fetch backend :", error);
+  setMessages((prev) => {
+    const updated = [...prev];
+    const tempIndex = updated.findIndex((msg) => msg.temp);
+    if (tempIndex !== -1) {
+      updated[tempIndex] = {
+        text: `❌ ${t("chat.error")}`,
         sender: "bot",
-        responseType: data.response_type,
-        steps: data.steps || []
       };
+    }
+    return updated;
+  });
+} finally {
+  setLoading(false);
+}
 
-      setMessages((prev) => {
-        const updated = [...prev];
-        const tempIndex = updated.findIndex((msg) => msg.temp);
-        if (tempIndex !== -1) updated[tempIndex] = botMessage;
-        return updated;
-      });
-
-      try {
-        const auth = getAuth();
-        const user = auth.currentUser;
-
-        await addDoc(collection(db, "chatHistory"), {
-          user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-          user_input: input,
-          bot_response: data.response,
-          query_type: data.response_type,
-          emotion: data.emotions || null,
-          steps: data.steps || [],
-          timestamp: new Date(),
-        });
-      } catch (firebaseError) {
-        console.error("Erreur Firebase :", firebaseError);
-      }
-
-    } catch (error) {
-      console.error("Erreur fetch backend :", error);
-      setMessages((prev) => {
-        const updated = [...prev];
-        const tempIndex = updated.findIndex((msg) => msg.temp);
-        if (tempIndex !== -1) {
-          updated[tempIndex] = {
-            text: `❌ ${t("chat.error")}`,
-            sender: "bot",
-          };
-        }
         return updated;
       });
     } finally {
@@ -241,3 +256,4 @@ function Chat() {
 }
 
 export default Chat;
+
