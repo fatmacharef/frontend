@@ -16,8 +16,8 @@ function Chat() {
   const [selectedSteps, setSelectedSteps] = useState(null);
   const [published, setPublished] = useState(false);
 
-  // ✅ URL correcte pour Gradio Space HF
-  const API_URL = "https://fatmata-psybot-backende.hf.space/api/predict/";
+  // ✅ URL correcte pour Hugging Face Space
+  const API_URL = "https://fatmata-psybot-backende.hf.space/run/predict";
 
   useEffect(() => {
     const mode = localStorage.getItem("theme") || "light";
@@ -40,17 +40,18 @@ function Chat() {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [input] }), // ✅ Adapté pour Gradio
+        body: JSON.stringify({ data: [input] }), // ✅ format attendu par Gradio
       });
 
       const result = await response.json();
-      const botData = result.data?.[0] || {};
+      console.log("Réponse brute backend:", result);
 
+      // ✅ Hugging Face Gradio renvoie { data: ["texte"] }
       const botMessage = {
-        text: botData.response || "Erreur : pas de réponse",
+        text: result.data?.[0] || "Erreur : pas de réponse",
         sender: "bot",
-        responseType: botData.response_type || "unknown",
-        steps: botData.steps || [],
+        responseType: "gpt", // tu peux ajuster si besoin
+        steps: [],
       };
 
       setMessages((prev) => {
@@ -70,7 +71,6 @@ function Chat() {
           user_input: input,
           bot_response: botMessage.text,
           query_type: botMessage.responseType,
-          emotion: botData.emotions || null,
           steps: botMessage.steps,
           timestamp: new Date(),
         });
@@ -138,39 +138,6 @@ function Chat() {
                       ></div>
                     ))}
                   </div>
-
-                  {msg.steps?.length > 0 && (
-                    <button className="steps-toggle" onClick={() => setSelectedSteps(msg)}>
-                      {t("chat.showSteps")}
-                    </button>
-                  )}
-
-                  {!published && msg.responseType === "gpt" && (
-                    <button
-                      className="publish-button"
-                      onClick={async () => {
-                        const auth = getAuth();
-                        const user = auth.currentUser;
-                        const userMessage = messages.findLast((m) => m.sender === "user");
-
-                        try {
-                          await addDoc(collection(db, "communityPosts"), {
-                            user_id: anonymous ? "anonyme" : user ? user.uid : "anonyme",
-                            user_input: userMessage.text,
-                            bot_response: msg.text,
-                            timestamp: new Date(),
-                          });
-                          alert("✅ Publié dans le fil communautaire !");
-                          setPublished(true);
-                        } catch (err) {
-                          console.error("Erreur publication :", err);
-                          alert("❌ Erreur lors de la publication");
-                        }
-                      }}
-                    >
-                      {t("chat.publishAnonymous")}
-                    </button>
-                  )}
                 </div>
                 <div className="bot-response-text">{msg.text}</div>
               </>
@@ -181,44 +148,6 @@ function Chat() {
         ))}
 
         <div ref={chatEndRef} />
-
-        {selectedSteps && (
-          <div className="steps-modal">
-            <div className="steps-modal-header">
-              <h3>{t("detail")}</h3>
-              <button onClick={() => setSelectedSteps(null)}>✖</button>
-            </div>
-            <div className="steps-modal-body">
-              {[
-                { label: "Intention", active: true },
-                { label: "Recherche", active: selectedSteps.responseType === "recherche" },
-                {
-                  label: "Émotion",
-                  active:
-                    selectedSteps.responseType === "non acceptable" ||
-                    selectedSteps.responseType === "gpt",
-                },
-                { label: "Message fix", active: selectedSteps.responseType === "non acceptable" },
-                { label: "GPT", active: selectedSteps.responseType === "gpt" },
-              ].map((step, i) => (
-                <div
-                  key={i}
-                  className={`step-item ${step.active ? "step-done" : "step-pending"}`}
-                >
-                  {step.active ? "✔" : "•"} {step.label}
-                </div>
-              ))}
-              <div className="steps-raw">
-                <h4>{t("detaill")}</h4>
-                <ul>
-                  {selectedSteps.steps?.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       <div className={`inpput-container ${messages.length > 0 ? "bottom" : "center"}`}>
